@@ -1,3 +1,5 @@
+/* globals String */
+
 /* jshint node:true, esversion: 6 */
 'use strict';
 
@@ -7,6 +9,7 @@ const RSVP          = require('rsvp');
 const chalk         = require('chalk');
 const _filter       = require('lodash').filter;
 const _forOwn       = require('lodash').forOwn;
+const _remove       = require('lodash').remove;
 
 const parseXML = function(xmlPath) {
   return new RSVP.Promise((resolve, reject) => {
@@ -26,7 +29,7 @@ const saveXML = function(json, xmlPath) {
 };
 
 const addNodes = function(json, opts) {
-  _forOwn(opts.desiredNodes, (newNodes, platformName) => {
+  _forOwn(opts.desiredNodes, (nodeData, platformName) => {
 
     //Cordova wont always have a platforms: []
     if(!json.widget.platform) json.widget.platform = [];
@@ -45,16 +48,24 @@ const addNodes = function(json, opts) {
       targetNodes = [];
     }
 
-    newNodes.forEach((node) => {
+    //Icons do not have a consistent node for detection
+    const itemKey = nodeData.itemKey;
+
+    nodeData.items.forEach((node) => {
       //If node exists, overwrite it
-      let matched = _filter(targetNodes, {$: { src: node.src } });
+
       let props = opts.serializeFn(platformName, opts.projectPath, node);
 
-      if (matched.length > 0) {
-        matched[0].$ = props;
-      } else {
-        targetNodes.push( {$: props} );
-      }
+
+      _filter(targetNodes, (item) => {
+        if (!item) return;
+
+        if (item.$[itemKey] === String(props[itemKey])) {
+          _remove(targetNodes, item);
+        }
+      });
+
+     targetNodes.push( {$: props} );
     });
 
     platformNode[opts.keyName] = targetNodes;
