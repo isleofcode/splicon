@@ -4,12 +4,13 @@
 const xml2js        = require('xml2js');
 const fs            = require('fs');
 const RSVP          = require('rsvp');
+const chalk         = require('chalk');
 const _filter       = require('lodash').filter;
 const _forOwn       = require('lodash').forOwn;
 
-const parseXML = function() {
+const parseXML = function(xmlPath) {
   return new RSVP.Promise((resolve, reject) => {
-    const contents = fs.readFileSync('config.xml', 'utf8');
+    const contents = fs.readFileSync(xmlPath, 'utf8');
     const parser = new xml2js.Parser();
     parser.parseString(contents, function (err, result) {
       if (err) reject(err);
@@ -18,59 +19,82 @@ const parseXML = function() {
   });
 };
 
-const saveXML = function(json) {
+const saveXML = function(json, xmlPath) {
   const builder = new xml2js.Builder();
   const xml = builder.buildObject(json);
-  fs.writeFile("config.xml", xml);
+  fs.writeFile(xmlPath, xml);
 };
 
 /*
+   Required opts:
+
    desiredNodes Array:
    {ios: [], android: [], blackberry: []}
    See lib/default-icons for an example
 
-   nodeName: String
+   keyName: String
    probably icon or splash, what is the config.xml node name?
 
    serializeFn: Function
    Given a single node from desiredNodes, serialize to config.xml format
 */
-module.exports = function(desiredNodes, nodeName, serializeFn) {
-  parseXML().then((json) => {
-    _forOwn(desiredNodes, (newNodes, platformName) => {
+module.exports = function(opts) {
+  const configPath = `${opts.projectPath}/config.xml`;
 
-      //Cordova wont always have a platforms: []
-      if(!json.widget.platform) json.widget.platform = [];
+  return new RSVP.Promise((resolve, reject) => {
+    if (!opts.projectPath ||
+        !opts.desiredNodes ||
+        !opts.keyName ||
+        !opts.serializeFn) {
 
-      //See if platform already exists
-      let platformNode = _filter(json.widget.platform, {$: { name: platformName } });
-      if (platformNode.length > 0) {
-        platformNode = platformNode[0];
-      } else {
-        platformNode = {$: { name: platformName } };
-        json.widget.platform.push(platformNode);
-      }
+      reject(
+        'Missing required opts: projectPath, desiredNodes, keyName, serializeFn'
+      );
+    }
 
-      let targetNodes = platformNode[nodeName];
-      if (targetNodes === undefined) {
-        targetNodes = [];
-      }
+    parseXML(configPath).then((json) => {
+      _forOwn(opts.desiredNodes, (newNodes, platformName) => {
 
-      newNodes.forEach((node) => {
-        //If node exists, overwrite it
-        let matched = _filter(targetNodes, {$: { src: node.src } });
-        let props = serializeFn(platformName, node);
+        //Cordova wont always have a platforms: []
+        if(!json.widget.platform) json.widget.platform = [];
 
-        if (matched.length > 0) {
-          matched[0].$ = props;
+        //See if platform already exists
+        let platformNode = _filter(json.widget.platform, {$: { name: platformName } });
+        if (platformNode.length > 0) {
+          platformNode = platformNode[0];
         } else {
-          targetNodes.push( {$: props} );
+          platformNode = {$: { name: platformName } };
+          json.widget.platform.push(platformNode);
         }
+
+        let targetNodes = platformNode[opts.keyName];
+        if (targetNodes === undefined) {
+          targetNodes = [];
+        }
+
+        newNodes.forEach((node) => {
+          //If node exists, overwrite it
+          let matched = _filter(targetNodes, {$: { src: node.src } });
+          let props = opts.serializeFn(platformName, opts.projectPath, node);
+
+          if (matched.length > 0) {
+            matched[0].$ = props;
+          } else {
+            targetNodes.push( {$: props} );
+          }
+        });
+
+        platformNode[opts.keyName] = targetNodes;
       });
 
-      platformNode[nodeName] = targetNodes;
-    });
+      saveXML(json, configPath);
+      resolve();
+    }).catch((err) => {
+      console.log(chalk.red(
+        `Error reading XML: ${err}`
+      ));
 
-    saveXML(json);
+      reject();
+    });
   });
 };
