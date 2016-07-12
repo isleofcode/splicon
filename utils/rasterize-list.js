@@ -22,7 +22,7 @@ module.exports = function (options) {
 
       let rasterizeTask = svg2png(buffer, { width: width, height: height })
       .then((pngBuffer) => {
-        fs.writeFileSync(rasterize.src, pngBuffer);
+        fs.writeFileSync(rasterize.path, pngBuffer);
       });
 
       rasterizeTasks.push(rasterizeTask);

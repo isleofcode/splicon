@@ -7,9 +7,11 @@ const xml2js        = require('xml2js');
 const fs            = require('fs');
 const RSVP          = require('rsvp');
 const chalk         = require('chalk');
-const _filter       = require('lodash').filter;
+const _findIndex    = require('lodash').findIndex;
 const _forOwn       = require('lodash').forOwn;
+const _filter       = require('lodash').filter;
 const _remove       = require('lodash').remove;
+const _pullAt       = require('lodash').pullAt;
 
 const parseXML = function(xmlPath) {
   return new RSVP.Promise((resolve, reject) => {
@@ -25,7 +27,8 @@ const parseXML = function(xmlPath) {
 const saveXML = function(json, xmlPath) {
   const builder = new xml2js.Builder();
   const xml = builder.buildObject(json);
-  fs.writeFile(xmlPath, xml);
+
+  fs.writeFileSync(xmlPath, xml);
 };
 
 const addNodes = function(json, opts) {
@@ -35,9 +38,13 @@ const addNodes = function(json, opts) {
     if(!json.widget.platform) json.widget.platform = [];
 
     //See if platform already exists
-    let platformNode = _filter(json.widget.platform, {$: { name: platformName } });
-    if (platformNode.length > 0) {
-      platformNode = platformNode[0];
+    let platformNode;
+    let platformNodePos = _findIndex(json.widget.platform, {$: { name: platformName } });
+
+    if (platformNodePos > -1) {
+      //the platform existed, assign to platform Node & temp rm from JSOn
+      platformNode = json.widget.platform[platformNodePos];
+      _pullAt(json.widget.platform, platformNodePos);
     } else {
       platformNode = {$: { name: platformName } };
       json.widget.platform.push(platformNode);
@@ -53,10 +60,7 @@ const addNodes = function(json, opts) {
 
     nodeData.items.forEach((node) => {
       //If node exists, overwrite it
-
       let props = opts.serializeFn(platformName, opts.projectPath, node);
-
-
       _filter(targetNodes, (item) => {
         if (!item) return;
 
@@ -69,9 +73,10 @@ const addNodes = function(json, opts) {
     });
 
     platformNode[opts.keyName] = targetNodes;
+    json.widget.platform.push(platformNode);
   });
 
-
+  return json;
 };
 
 /*
@@ -102,7 +107,7 @@ module.exports = function(opts) {
     }
 
     parseXML(configPath).then((json) => {
-      addNodes(json, opts);
+      json = addNodes(json, opts);
       saveXML(json, configPath);
       resolve();
     }).catch((err) => {
