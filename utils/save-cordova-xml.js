@@ -25,6 +25,44 @@ const saveXML = function(json, xmlPath) {
   fs.writeFile(xmlPath, xml);
 };
 
+const addNodes = function(json, opts) {
+  _forOwn(opts.desiredNodes, (newNodes, platformName) => {
+
+    //Cordova wont always have a platforms: []
+    if(!json.widget.platform) json.widget.platform = [];
+
+    //See if platform already exists
+    let platformNode = _filter(json.widget.platform, {$: { name: platformName } });
+    if (platformNode.length > 0) {
+      platformNode = platformNode[0];
+    } else {
+      platformNode = {$: { name: platformName } };
+      json.widget.platform.push(platformNode);
+    }
+
+    let targetNodes = platformNode[opts.keyName];
+    if (targetNodes === undefined) {
+      targetNodes = [];
+    }
+
+    newNodes.forEach((node) => {
+      //If node exists, overwrite it
+      let matched = _filter(targetNodes, {$: { src: node.src } });
+      let props = opts.serializeFn(platformName, opts.projectPath, node);
+
+      if (matched.length > 0) {
+        matched[0].$ = props;
+      } else {
+        targetNodes.push( {$: props} );
+      }
+    });
+
+    platformNode[opts.keyName] = targetNodes;
+  });
+
+
+};
+
 /*
    Required opts:
 
@@ -53,40 +91,7 @@ module.exports = function(opts) {
     }
 
     parseXML(configPath).then((json) => {
-      _forOwn(opts.desiredNodes, (newNodes, platformName) => {
-
-        //Cordova wont always have a platforms: []
-        if(!json.widget.platform) json.widget.platform = [];
-
-        //See if platform already exists
-        let platformNode = _filter(json.widget.platform, {$: { name: platformName } });
-        if (platformNode.length > 0) {
-          platformNode = platformNode[0];
-        } else {
-          platformNode = {$: { name: platformName } };
-          json.widget.platform.push(platformNode);
-        }
-
-        let targetNodes = platformNode[opts.keyName];
-        if (targetNodes === undefined) {
-          targetNodes = [];
-        }
-
-        newNodes.forEach((node) => {
-          //If node exists, overwrite it
-          let matched = _filter(targetNodes, {$: { src: node.src } });
-          let props = opts.serializeFn(platformName, opts.projectPath, node);
-
-          if (matched.length > 0) {
-            matched[0].$ = props;
-          } else {
-            targetNodes.push( {$: props} );
-          }
-        });
-
-        platformNode[opts.keyName] = targetNodes;
-      });
-
+      addNodes(json, opts);
       saveXML(json, configPath);
       resolve();
     }).catch((err) => {
