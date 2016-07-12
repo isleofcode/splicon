@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "splicon": "bin/cordova-icons.js"
+    "splicon-icons": "bin/splicon-icons.js"
   },
   "keywords": [
     "cordova",
@@ -20,6 +20,17 @@
     "email": "alex@isleofcode.com",
     "url": "https://isleofcode.com"
   },
+  "contributors": [
+    {
+      "name": "Chris Thoburn",
+      "email": "chris@isleofcode.com",
+      "url": "https://isleofcode.com"
+    }, {
+      "name": "Jordan Yee",
+      "email": "jordan@isleofcode.com",
+      "url": "https://isleofcode.com"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
     "chalk": "^0.4.0",
