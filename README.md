@@ -1,4 +1,4 @@
-#Splicon (0.1)
+#Splicon (beta)
 
 Splicon is a command tool for automagically generating icons &
 splash screens for Cordova applications from a single svg, and updating config.xml.
