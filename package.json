@@ -1,6 +1,6 @@
 {
   "name": "splicon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate cordova/splash files from a single svg, and update config.xml",
   "homepage": "https://github.com/isleofcode/splicon",
   "main": "lib/icon-task.js",
