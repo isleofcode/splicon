@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "Generate cordova/splash files from a single svg, and update config.xml",
   "homepage": "https://github.com/isleofcode/splicon",
-  "main": "index.js",
+  "main": "lib/icon-task.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
