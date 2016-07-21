@@ -1,7 +1,7 @@
 /* jshint node:true, esversion: 6 */
 const _get          = require('lodash').get;
 
-module.exports = function makeDir(platform, projectPath, iconData) {
+module.exports = function (platform, projectPath, iconData) {
   let props = { src: iconData.src };
 
   if (platform === 'ios') {
