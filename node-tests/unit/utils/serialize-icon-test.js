@@ -38,7 +38,13 @@ describe('SerializeIcon', () => {
 
     context('when icon data includes name and target', () => {
       it('returns an object with src and target as target', () => {
-        const iconData = { src: 'foo', name: 'smalllogo', attrs: { target: 'Square30x30Logo' } };
+        const iconData = {
+          src: 'foo',
+          name: 'smalllogo',
+          attrs: {
+            target: 'Square30x30Logo'
+          }
+        };
 
         const props = SerializeIcon(platform, projectPath, iconData);
 
