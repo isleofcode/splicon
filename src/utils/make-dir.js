@@ -2,7 +2,7 @@
 const path          = require("path");
 const fs            = require("fs");
 
-module.exports = function makeDir(base, destPath) {
+module.exports = function (base, destPath) {
   destPath = destPath.split("/");
   destPath.forEach((segment) => {
     if (segment) {
