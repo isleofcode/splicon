@@ -9,13 +9,17 @@ const path          = require('path');
 
 describe('MakeDir', () => {
   context('when base and destPath', () => {
+    let mkdirSync;
+
+    beforeEach(() => {
+      mkdirSync = td.replace(fs, 'mkdirSync');
+    });
+
     afterEach(() => {
       td.reset();
     });
 
     it('makes the directory', () => {
-      var mkdirSync = td.replace(fs, 'mkdirSync');
-
       let base = './';
       const destPath = 'foo/bar';
 
