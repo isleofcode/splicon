@@ -19,21 +19,24 @@ describe('RasterizeList', function() {
         path: 'tmp/icon-60.png'
       }
     ];
+    let subject;
 
-    afterEach(() => {
+    before(() => {
+      subject = RasterizeList({src: src, toRasterize: toRasterize});
+    });
+
+    after(() => {
       toRasterize.forEach((rasterize) => {
         fs.unlinkSync(rasterize.path);
       });
     });
 
     it('returns a promise that resolves to an array', (done) => {
-      expect(
-        RasterizeList({src: src, toRasterize: toRasterize})
-      ).to.eventually.be.a('array').notify(done);
+      expect(subject).to.eventually.be.a('array').notify(done);
     });
 
     it('writes the files to rasterize at the right size', (done) => {
-      RasterizeList({src: src, toRasterize: toRasterize}).then(() => {
+      subject.then(() => {
         toRasterize.forEach((rasterize) => {
           expect(fs.existsSync(rasterize.path)).to.equal(true);
           expect(sizeOf(rasterize.path).width).to.equal(rasterize.size);
