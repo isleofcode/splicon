@@ -1,52 +1,46 @@
 'use strict';
 
-const td            = require('testdouble');
 const expect        = require('../../helpers/expect');
-
 const fs            = require('fs');
-const RSVP          = require('rsvp');
-const svg2png       = td.replace('svg2png', (sourceBuffer, resize) => {
-  return RSVP.resolve('PNG-BUFFER');
-});
+const sizeOf        = require('image-size');
 
 const RasterizeList = require('../../../src/utils/rasterize-list');
 
-describe('RasterizeList', () => {
-  context('when src and toRasterize', () => {
-    let readFileSync, writeFileSync;
+describe('RasterizeList', function() {
+  // Hitting the file system is slow
+  this.timeout(0);
 
-    beforeEach(() => {
-      readFileSync = td.replace(fs, 'readFileSync');
-      writeFileSync = td.replace(fs, 'writeFileSync');
-    });
+  context('when src and toRasterize', () => {
+    const src = 'node-tests/fixtures/icon.svg';
+    const toRasterize = [
+      {
+        size: 60,
+        name: 'icon-60',
+        path: 'tmp/icon-60.png'
+      }
+    ];
 
     afterEach(() => {
-      td.reset();
+      toRasterize.forEach((rasterize) => {
+        fs.unlinkSync(rasterize.path);
+      });
     });
 
-    it('returns a resolved promise', () => {
-      const src = 'icon.svg';
-      const toRasterize = [
-        {
-          size: 60,
-          name: 'icon-60',
-          src: 'res/icon/ios/icon-60.png',
-          path: 'cordova/res/icon/ios/icon-60.png'
-        }
-      ];
-      const options = { src: src, toRasterize: toRasterize };
+    it('returns a promise that resolves to an array', (done) => {
+      expect(
+        RasterizeList({src: src, toRasterize: toRasterize})
+      ).to.eventually.be.a('array').notify(done);
+    });
 
-      expect(RasterizeList(options)).to.be.fulfilled;
-
-      td.verify(readFileSync(src));
-
-      // FIXME: Verify svg2png and fs.writeFileSync receive the right
-      // arguments. Code below matches documentation but results in two
-      // different errors.
-      // toRasterize.forEach((rasterize) => {
-      //   td.verify(svg2png(td.matchers.anything(), { width: rasterize.size, height: rasterize.size }));
-      //   td.verify(writeFileSync(rasterize.path, 'PNG-BUFFER'));
-      // });
+    it('writes the files to rasterize at the right size', (done) => {
+      RasterizeList({src: src, toRasterize: toRasterize}).then(() => {
+        toRasterize.forEach((rasterize) => {
+          expect(fs.existsSync(rasterize.path)).to.equal(true);
+          expect(sizeOf(rasterize.path).width).to.equal(rasterize.size);
+          expect(sizeOf(rasterize.path).height).to.equal(rasterize.size);
+        });
+        done();
+      });
     });
   });
 });
