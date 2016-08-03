@@ -26,7 +26,8 @@ const saveXML = function(json, xmlPath) {
   const builder = new xml2js.Builder();
   const xml = builder.buildObject(json);
 
-  fs.writeFileSync(xmlPath, xml);
+  // Add missing trailing newline
+  fs.writeFileSync(xmlPath, xml + '\n');
 };
 
 const addNodes = function(json, opts) {
