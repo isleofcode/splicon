@@ -37,12 +37,16 @@ describe('RasterizeList', function() {
 
     it('writes the files to rasterize at the right size', (done) => {
       subject.then(() => {
-        toRasterize.forEach((rasterize) => {
-          expect(fs.existsSync(rasterize.path)).to.equal(true);
-          expect(sizeOf(rasterize.path).width).to.equal(rasterize.size);
-          expect(sizeOf(rasterize.path).height).to.equal(rasterize.size);
-        });
-        done();
+        try {
+          toRasterize.forEach((rasterize) => {
+            expect(fs.existsSync(rasterize.path)).to.equal(true);
+            expect(sizeOf(rasterize.path).width).to.equal(rasterize.size);
+            expect(sizeOf(rasterize.path).height).to.equal(rasterize.size);
+          });
+          done();
+        } catch(e) {
+          done(e);
+        }
       });
     });
   });
