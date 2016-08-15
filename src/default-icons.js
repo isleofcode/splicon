@@ -11,7 +11,6 @@ module.exports = {
       { size : 60,  name : 'icon-60' },
       { size : 120, name : 'icon-60@2x' },
       { size : 180, name : 'icon-60@3x' },
-      { size : 57,  name : 'icon' },
       { size : 114, name : 'icon@2x' },
       { size : 29,  name : 'icon-small' },
       { size : 58,  name : 'icon-small@2x' },
