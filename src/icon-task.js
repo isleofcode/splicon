@@ -1,12 +1,10 @@
 /* jshint node:true, esversion: 6 */
-'use strict';
-
-const DefaultIcons  = require('../lib/default-icons');
-const RasterizeList = require('../utils/rasterize-list');
-const SaveCdvXML    = require('../utils/save-cordova-xml');
-const MakeDir       = require('../utils/make-dir');
-const SerializeIcon = require('../utils/serialize-icon');
-const ValidPlatform = require('../utils/validate-platforms');
+const DefaultIcons  = require('./default-icons');
+const RasterizeList = require('./utils/rasterize-list');
+const SaveCdvXML    = require('./utils/save-cordova-xml');
+const MakeDir       = require('./utils/make-dir');
+const SerializeIcon = require('./utils/serialize-icon');
+const ValidPlatform = require('./utils/validate-platforms');
 
 const RSVP          = require('rsvp');
 const chalk         = require('chalk');
