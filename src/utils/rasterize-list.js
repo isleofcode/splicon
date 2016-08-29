@@ -1,9 +1,9 @@
 /* jshint node:true, esversion: 6 */
 'use strict';
 
-const fs            = require("fs");
+const fs            = require('fs');
 const RSVP          = require('rsvp');
-const svg2png       = require('svg2png');
+const svg2png       = require('../../vendor/svg2png/svg2png');
 
 module.exports = function (options) {
   return new RSVP.Promise((resolve) => {
