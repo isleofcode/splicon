@@ -45,7 +45,6 @@ const addNodes = function(json, opts) {
       _pullAt(json.widget.platform, platformNodePos);
     } else {
       platformNode = {$: { name: platformName } };
-      json.widget.platform.push(platformNode);
     }
 
     let targetNodes = platformNode[opts.keyName];
