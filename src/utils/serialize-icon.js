@@ -1,6 +1,4 @@
 /* jshint node:true, esversion: 6 */
-'use strict';
-
 const _get          = require('lodash').get;
 
 module.exports = function makeDir(platform, projectPath, iconData) {

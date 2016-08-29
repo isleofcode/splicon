@@ -6,6 +6,8 @@
   "main": "lib/icon-task.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel --presets babel-preset-es2015 --browserify -d dist/ src/",
+    "prepublish": "npm run compile"
   },
   "bin": {
     "splicon-icons": "bin/splicon-icons.js"
@@ -37,6 +39,12 @@
   "dependencies": {
     "chalk": "^0.4.0",
     "lodash": "^4.13.1",
-    "rsvp": "^3.2.1"
+    "rsvp": "^3.2.1",
+    "xml2js": "^0.4.16",
+    "phantomjs-prebuilt": "^2.1.12",
+    "pn": "^1.0.0"
+  },
+  "devDependencies": {
+    "babelify": "^7.3.0"
   }
 }
