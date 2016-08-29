@@ -41,7 +41,8 @@ function writeBufferInChunks(writableStream, buffer) {
 
 function processResult(result) {
     var stdout = result.stdout.toString();
-    if (stdout.startsWith(PREFIX)) {
+    //below line is changed from startsWith
+    if (stdout.indexOf(PREFIX === 0)) {
         return new Buffer(stdout.substring(PREFIX.length), "base64");
     }
 
