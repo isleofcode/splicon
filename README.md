@@ -43,6 +43,15 @@ Not done yet, nearly there.
 ##Testing
 A test suite is being implemented by Jordan Yee.
 
+##A note on dependencies
+One of the main dependencies of this library is
+[svg2png](https://github.com/domenic/svg2png). Unfortunately
+ember-cordova requires node 0.12+ support, where svg2png is 4+. Thus, splicon now ships with a babelfied version of svg2png in vendor.
+There is a single modification to the source, seen [here](https://github.com/isleofcode/splicon/commit/647b2a7d931bc282da079c646e65adaf39f28bec).
+
+This does not imply the packaged version of svg2png will support 0.12 in
+other use cases, and is a stopgap solution.
+
 ##Contributing
 
 PRs are very welcome. You can read our style guides [here](https://github.com/isleofcode/style-guide).
