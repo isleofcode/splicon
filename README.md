@@ -6,6 +6,8 @@ splash screens for Cordova applications from a single svg, and updating config.x
 There is a cli, but can be included in other libraries. It was
 originally built for use in [ember-cordova](https://github.com/isleofcode/ember-cordova).
 
+It is built for node 0.12+, and probably works on lower.
+
 ##Icons
 
 For an integration example, see [ember-cordovas make-icon command](https://github.com/isleofcode/ember-cordova/tree/master/lib/commands/make-icons.js).
