@@ -1,6 +1,4 @@
 /* jshint node:true, esversion: 6 */
-'use strict';
-
 const _filter       = require('lodash').filter;
 const ALLOWED_PLATFORMS = [
   'all',
