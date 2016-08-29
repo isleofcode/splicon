@@ -5,7 +5,7 @@
   "homepage": "https://github.com/isleofcode/splicon",
   "main": "lib/icon-task.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
   },
   "bin": {
     "splicon-icons": "bin/splicon-icons.js"
@@ -26,7 +26,8 @@
       "name": "Chris Thoburn",
       "email": "chris@isleofcode.com",
       "url": "https://isleofcode.com"
-    }, {
+    },
+    {
       "name": "Jordan Yee",
       "email": "jordan@isleofcode.com",
       "url": "https://isleofcode.com"
@@ -36,8 +37,6 @@
   "dependencies": {
     "chalk": "^0.4.0",
     "lodash": "^4.13.1",
-    "svg2png": "^3.0.0",
-    "rsvp": "^3.2.1",
-    "xml2js": "^0.4.16"
+    "rsvp": "^3.2.1"
   }
 }
