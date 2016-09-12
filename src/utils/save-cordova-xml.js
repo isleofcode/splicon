@@ -15,6 +15,9 @@ const parseXML = function(xmlPath) {
   return new RSVP.Promise((resolve, reject) => {
     const contents = fs.readFileSync(xmlPath, 'utf8');
     const parser = new xml2js.Parser();
+
+    if (contents === '') reject('File is empty');
+
     parser.parseString(contents, function (err, result) {
       if (err) reject(err);
       if (result) resolve(result);
