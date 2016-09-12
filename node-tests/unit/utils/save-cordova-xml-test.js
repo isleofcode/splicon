@@ -10,6 +10,14 @@ describe('SaveCordovaXML', function() {
   const fixturePath = 'node-tests/fixtures/config.xml';
   const tmpFixturePath = 'tmp/config.xml';
 
+  const projectPath = 'tmp';
+
+  before(() => {
+    if (!fs.existsSync(projectPath)) {
+      fs.mkdirSync(projectPath);
+    }
+  });
+
   afterEach(() => {
     fs.unlinkSync(tmpFixturePath);
   });

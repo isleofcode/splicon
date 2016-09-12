@@ -21,6 +21,10 @@ describe('IconTask', function() {
   const projectPath = 'tmp';
 
   before(() => {
+    if (!fs.existsSync(projectPath)) {
+      fs.mkdirSync(projectPath);
+    }
+
     fs.createReadStream(`${fixturePath}/no-platform-nodes.xml`)
     .pipe(fs.createWriteStream(tmpConfigPath));
   });

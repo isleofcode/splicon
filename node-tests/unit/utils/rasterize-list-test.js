@@ -10,6 +10,12 @@ describe('RasterizeList', function() {
   // Hitting the file system is slow
   this.timeout(0);
 
+  before(() => {
+    if (!fs.existsSync('tmp')) {
+      fs.mkdirSync('tmp');
+    }
+  });
+
   context('when src and toRasterize', () => {
     const src = 'node-tests/fixtures/icon.svg';
     const toRasterize = [
