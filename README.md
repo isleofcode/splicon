@@ -35,7 +35,7 @@ splicon icons ios android windows
 ```
 
 For more granular control (such as setting the destination path), you
-will need to require lib/icon-task and run the function yourself.
+will need to require src/icon-task and run the function yourself.
 
 There is a TODO to enhance cli flag, but in most cases this is handled in [ember-cordova](https://github.com/isleofcode/ember-cordova).
 
