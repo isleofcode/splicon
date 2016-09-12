@@ -3,7 +3,7 @@
   "version": "0.0.4",
   "description": "Generate cordova/splash files from a single svg, and update config.xml",
   "homepage": "https://github.com/isleofcode/splicon",
-  "main": "lib/icon-task.js",
+  "main": "src/icon-task.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha 'node-tests/**/*-test.js'",
     "compile": "babel --presets babel-preset-es2015 --browserify -d dist/ src/",
