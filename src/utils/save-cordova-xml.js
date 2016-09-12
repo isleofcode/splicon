@@ -116,7 +116,7 @@ module.exports = function(opts) {
         `Error reading XML: ${err}`
       ));
 
-      reject();
+      reject(new Error(err));
     });
   });
 };
