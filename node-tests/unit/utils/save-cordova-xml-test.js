@@ -60,6 +60,9 @@ describe('SaveCordovaXML', function() {
           } catch(e) {
             done(e);
           }
+        })
+        .catch((e) => {
+          done(e);
         });
       });
     });
@@ -83,6 +86,9 @@ describe('SaveCordovaXML', function() {
           } catch(e) {
             done(e);
           }
+        })
+        .catch((e) => {
+          done(e);
         });
       });
     });
@@ -106,6 +112,9 @@ describe('SaveCordovaXML', function() {
           } catch(e) {
             done(e);
           }
+        })
+        .catch((e) => {
+          done(e);
         });
       });
     });
