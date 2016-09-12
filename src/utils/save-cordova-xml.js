@@ -85,7 +85,7 @@ const addNodes = function(json, opts) {
 
    desiredNodes Array:
    {ios: [], android: [], blackberry: []}
-   See lib/default-icons for an example
+   See src/default-icons for an example
 
    keyName: String
    probably icon or splash, what is the config.xml node name?
