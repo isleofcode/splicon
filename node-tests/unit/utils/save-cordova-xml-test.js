@@ -42,9 +42,14 @@ describe('SaveCordovaXML', function() {
     };
 
     context('when config.xml has no platform nodes', () => {
-      before(() => {
-        fs.createReadStream(`${fixturePath}/no-platform-nodes.xml`)
-        .pipe(fs.createWriteStream(tmpFixturePath));
+      before((done) => {
+        const fixtureStream = fs.createReadStream(`${fixturePath}/no-platform-nodes.xml`)
+        const tmpFixtureStream = fs.createWriteStream(tmpFixturePath)
+        fixtureStream.pipe(tmpFixtureStream);
+
+        tmpFixtureStream.on('finish', () => {
+          done();
+        });
       });
 
       it('it adds the platform node with icon nodes', (done) => {
@@ -68,9 +73,14 @@ describe('SaveCordovaXML', function() {
     });
 
     context('when config.xml has desiredNodes platform', () => {
-      before(() => {
-        fs.createReadStream(`${fixturePath}/ios-platform-node.xml`)
-        .pipe(fs.createWriteStream(tmpFixturePath));
+      before((done) => {
+        const fixtureStream = fs.createReadStream(`${fixturePath}/ios-platform-node.xml`)
+        const tmpFixtureStream = fs.createWriteStream(tmpFixturePath)
+        fixtureStream.pipe(tmpFixtureStream);
+
+        tmpFixtureStream.on('finish', () => {
+          done();
+        });
       });
 
       it('it replaces the icon nodes', (done) => {
@@ -94,9 +104,14 @@ describe('SaveCordovaXML', function() {
     });
 
     context('when config.xml does not have desiredNodes platform', () => {
-      before(() => {
-        fs.createReadStream(`${fixturePath}/android-platform-node.xml`)
-        .pipe(fs.createWriteStream(tmpFixturePath));
+      before((done) => {
+        const fixtureStream = fs.createReadStream(`${fixturePath}/android-platform-node.xml`)
+        const tmpFixtureStream = fs.createWriteStream(tmpFixturePath)
+        fixtureStream.pipe(tmpFixtureStream);
+
+        tmpFixtureStream.on('finish', () => {
+          done();
+        });
       });
 
       it('it adds the platform node with icon nodes', (done) => {
