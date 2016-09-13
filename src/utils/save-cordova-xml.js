@@ -1,6 +1,8 @@
 /* globals String */
 
 /* jshint node:true, esversion: 6 */
+'use strict';
+
 const xml2js        = require('xml2js');
 const fs            = require('fs');
 const RSVP          = require('rsvp');
