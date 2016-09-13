@@ -1,10 +1,11 @@
 'use strict';
 
 const expect        = require('../../helpers/expect');
-const fs            = require('fs');
-const sizeOf        = require('image-size');
 
 const RasterizeList = require('../../../src/utils/rasterize-list');
+
+const fs            = require('fs');
+const sizeOf        = require('image-size');
 
 describe('RasterizeList', function() {
   // Hitting the file system is slow
