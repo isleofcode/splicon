@@ -80,10 +80,10 @@ describe('IconTask', function() {
 
       it('updates config.xml', (done) => {
         task.then(() => {
-          const configXML = fs.readFileSync(tmpConfigPath, 'utf8');
+          const configFile = fs.readFileSync(tmpConfigPath, 'utf8');
 
           try {
-            parseString(configXML, (err, config) => {
+            parseString(configFile, (err, config) => {
               if (err) done(err);
 
               const platformNode = _find(config.widget.platform, (node) => {
