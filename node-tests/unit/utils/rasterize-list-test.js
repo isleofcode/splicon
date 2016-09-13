@@ -12,9 +12,7 @@ describe('RasterizeList', function() {
   this.timeout(0);
 
   before(() => {
-    if (!fs.existsSync('tmp')) {
-      fs.mkdirSync('tmp');
-    }
+    if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');
   });
 
   context('when src and toRasterize', () => {

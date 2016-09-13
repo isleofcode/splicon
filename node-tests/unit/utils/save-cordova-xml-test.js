@@ -14,9 +14,7 @@ describe('SaveCordovaXML', function() {
   const projectPath = 'tmp';
 
   before(() => {
-    if (!fs.existsSync(projectPath)) {
-      fs.mkdirSync(projectPath);
-    }
+    if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');
   });
 
   afterEach(() => {
