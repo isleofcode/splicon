@@ -15,18 +15,24 @@ describe('IconTask', function() {
 
   const fixturePath = 'node-tests/fixtures/config.xml';
   const tmpConfigPath = 'tmp/config.xml'
+  const tmpFixturePath = 'tmp/config.xml';
 
   const svgPath = 'node-tests/fixtures/icon.svg';
   const pngPath = 'icons';
   const projectPath = 'tmp';
 
-  before(() => {
+  before((done) => {
     if (!fs.existsSync(projectPath)) {
       fs.mkdirSync(projectPath);
     }
 
-    fs.createReadStream(`${fixturePath}/no-platform-nodes.xml`)
-    .pipe(fs.createWriteStream(tmpConfigPath));
+    const fixtureStream = fs.createReadStream(`${fixturePath}/no-platform-nodes.xml`);
+    const tmpFixtureStream = fs.createWriteStream(tmpFixturePath);
+    fixtureStream.pipe(tmpFixtureStream);
+
+    tmpFixtureStream.on('finish', () => {
+      done();
+    });
   });
 
   after(() => {
