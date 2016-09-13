@@ -1,10 +1,11 @@
 'use strict';
 
 const expect        = require('../../helpers/expect');
-const fs            = require('fs');
-const SerializeIcon = require('../../../src/utils/serialize-icon');
 
 const SaveCdvXML    = require('../../../src/utils/save-cordova-xml');
+
+const fs            = require('fs');
+const SerializeIcon = require('../../../src/utils/serialize-icon');
 
 describe('SaveCordovaXML', function() {
   const fixturePath = 'node-tests/fixtures/config.xml';
