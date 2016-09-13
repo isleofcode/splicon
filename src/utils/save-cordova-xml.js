@@ -1,6 +1,8 @@
 /* globals String */
 
 /* jshint node:true, esversion: 6 */
+'use strict';
+
 const xml2js        = require('xml2js');
 const fs            = require('fs');
 const RSVP          = require('rsvp');
@@ -15,6 +17,9 @@ const parseXML = function(xmlPath) {
   return new RSVP.Promise((resolve, reject) => {
     const contents = fs.readFileSync(xmlPath, 'utf8');
     const parser = new xml2js.Parser();
+
+    if (contents === '') reject('File is empty');
+
     parser.parseString(contents, function (err, result) {
       if (err) reject(err);
       if (result) resolve(result);
@@ -26,7 +31,8 @@ const saveXML = function(json, xmlPath) {
   const builder = new xml2js.Builder();
   const xml = builder.buildObject(json);
 
-  fs.writeFileSync(xmlPath, xml);
+  // Add missing trailing newline
+  fs.writeFileSync(xmlPath, xml + '\n');
 };
 
 const addNodes = function(json, opts) {
@@ -81,7 +87,7 @@ const addNodes = function(json, opts) {
 
    desiredNodes Array:
    {ios: [], android: [], blackberry: []}
-   See lib/default-icons for an example
+   See src/default-icons for an example
 
    keyName: String
    probably icon or splash, what is the config.xml node name?
@@ -112,7 +118,7 @@ module.exports = function(opts) {
         `Error reading XML: ${err}`
       ));
 
-      reject();
+      reject(new Error(err));
     });
   });
 };

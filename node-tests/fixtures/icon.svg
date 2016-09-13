@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360px" height="360px" viewBox="0 0 360 360">
+  <defs>
+    <linearGradient id="moonrise" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop stop-color="#DAE2F8" offset="0%"></stop>
+      <stop stop-color="#D6A4A4" offset="100%"></stop>
+    </linearGradient>
+
+    <linearGradient id="moon" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop stop-color="#EDEAE6" offset="0%"></stop>
+      <stop stop-color="#FAF7F7" offset="100%"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect fill="url(#moonrise)" x="0" y="0" width="360" height="360"></rect>
+  <circle fill="url(#moon)" cx="220" cy="132" r="75"></circle>
+</svg>
