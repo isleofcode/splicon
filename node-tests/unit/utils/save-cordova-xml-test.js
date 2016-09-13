@@ -8,17 +8,15 @@ const fs            = require('fs');
 const SerializeIcon = require('../../../src/utils/serialize-icon');
 
 describe('SaveCordovaXML', function() {
-  const fixturePath = 'node-tests/fixtures/config.xml';
-  const tmpFixturePath = 'tmp/config.xml';
-
-  const projectPath = 'tmp';
+  const configFixtureDir = 'node-tests/fixtures/config.xml';
+  const tmpConfigPath = 'tmp/config.xml';
 
   before(() => {
     if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');
   });
 
   afterEach(() => {
-    fs.unlinkSync(tmpFixturePath);
+    fs.unlinkSync(tmpConfigPath);
   });
 
   context('when projectPath, desiredNodes, keyName, and serializeFn', () => {
@@ -42,30 +40,27 @@ describe('SaveCordovaXML', function() {
 
     context('when config.xml has no platform nodes', () => {
       before((done) => {
-        const fixtureStream = fs.createReadStream(`${fixturePath}/no-platform-nodes.xml`)
-        const tmpFixtureStream = fs.createWriteStream(tmpFixturePath)
-        fixtureStream.pipe(tmpFixtureStream);
-
-        tmpFixtureStream.on('finish', () => {
-          done();
-        });
+        const fixturePath = `${configFixtureDir}/no-platform-nodes.xml`;
+        const fixtureStream = fs.createReadStream(fixturePath);
+        const tmpConfigStream = fs.createWriteStream(tmpConfigPath);
+        fixtureStream.pipe(tmpConfigStream);
+        tmpConfigStream.on('finish', () => { done(); });
       });
 
       it('it adds the platform node with icon nodes', (done) => {
         SaveCdvXML(args).then(() => {
-          const configXML = fs.readFileSync(tmpFixturePath, 'utf8');
-          const expectedConfigXML = fs.readFileSync(
-            `${fixturePath}/no-and-ios-platform-node-expected.xml`, 'utf8'
-          );
+          const tmpConfig = fs.readFileSync(tmpConfigPath, 'utf8');
+          const expectedConfigPath =
+            `${configFixtureDir}/no-and-ios-platform-node-expected.xml`;
+          const expectedConfig = fs.readFileSync(expectedConfigPath, 'utf8');
 
           try {
-            expect(configXML).to.equal(expectedConfigXML);
+            expect(tmpConfig).to.equal(expectedConfig);
             done();
           } catch(e) {
             done(e);
           }
-        })
-        .catch((e) => {
+        }).catch((e) => {
           done(e);
         });
       });
@@ -73,30 +68,27 @@ describe('SaveCordovaXML', function() {
 
     context('when config.xml has desiredNodes platform', () => {
       before((done) => {
-        const fixtureStream = fs.createReadStream(`${fixturePath}/ios-platform-node.xml`)
-        const tmpFixtureStream = fs.createWriteStream(tmpFixturePath)
-        fixtureStream.pipe(tmpFixtureStream);
-
-        tmpFixtureStream.on('finish', () => {
-          done();
-        });
+        const fixturePath = `${configFixtureDir}/ios-platform-node.xml`;
+        const fixtureStream = fs.createReadStream(fixturePath);
+        const tmpConfigStream = fs.createWriteStream(tmpConfigPath);
+        fixtureStream.pipe(tmpConfigStream);
+        tmpConfigStream.on('finish', () => { done(); });
       });
 
       it('it replaces the icon nodes', (done) => {
         SaveCdvXML(args).then(() => {
-          const configXML = fs.readFileSync(tmpFixturePath, 'utf8');
-          const expectedConfigXML = fs.readFileSync(
-            `${fixturePath}/no-and-ios-platform-node-expected.xml`, 'utf8'
-          );
+          const tmpConfig = fs.readFileSync(tmpConfigPath, 'utf8');
+          const expectedConfigPath =
+            `${configFixtureDir}/no-and-ios-platform-node-expected.xml`;
+          const expectedConfig = fs.readFileSync(expectedConfigPath, 'utf8');
 
           try {
-            expect(configXML).to.equal(expectedConfigXML);
+            expect(tmpConfig).to.equal(expectedConfig);
             done();
           } catch(e) {
             done(e);
           }
-        })
-        .catch((e) => {
+        }).catch((e) => {
           done(e);
         });
       });
@@ -104,30 +96,27 @@ describe('SaveCordovaXML', function() {
 
     context('when config.xml does not have desiredNodes platform', () => {
       before((done) => {
-        const fixtureStream = fs.createReadStream(`${fixturePath}/android-platform-node.xml`)
-        const tmpFixtureStream = fs.createWriteStream(tmpFixturePath)
-        fixtureStream.pipe(tmpFixtureStream);
-
-        tmpFixtureStream.on('finish', () => {
-          done();
-        });
+        const fixturePath = `${configFixtureDir}/android-platform-node.xml`;
+        const fixtureStream = fs.createReadStream(fixturePath);
+        const tmpConfigStream = fs.createWriteStream(tmpConfigPath);
+        fixtureStream.pipe(tmpConfigStream);
+        tmpConfigStream.on('finish', () => { done(); });
       });
 
       it('it adds the platform node with icon nodes', (done) => {
         SaveCdvXML(args).then(() => {
-          const configXML = fs.readFileSync(tmpFixturePath, 'utf8');
-          const expectedConfigXML = fs.readFileSync(
-            `${fixturePath}/android-platform-node-expected.xml`, 'utf8'
-          );
+          const tmpConfig = fs.readFileSync(tmpConfigPath, 'utf8');
+          const expectedConfigPath =
+            `${configFixtureDir}/android-platform-node-expected.xml`;
+          const expectedConfig = fs.readFileSync(expectedConfigPath, 'utf8');
 
           try {
-            expect(configXML).to.equal(expectedConfigXML);
+            expect(tmpConfig).to.equal(expectedConfig);
             done();
           } catch(e) {
             done(e);
           }
-        })
-        .catch((e) => {
+        }).catch((e) => {
           done(e);
         });
       });
