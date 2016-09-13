@@ -1,13 +1,14 @@
 'use strict';
 
 const expect        = require('../helpers/expect');
+
+const IconTask      = require('../../src/icon-task');
+
 const fs            = require('fs');
 const sizeOf        = require('image-size');
 const parseString   = require('xml2js').parseString;
 const _find         = require('lodash').find;
 const DefaultIcons  = require('../../src/default-icons');
-
-const IconTask      = require('../../src/icon-task');
 
 describe('IconTask', function() {
   // Hitting the file system is slow
