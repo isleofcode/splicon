@@ -14,9 +14,8 @@ describe('IconTask', function() {
   // Hitting the file system is slow
   this.timeout(0);
 
-  const fixturePath = 'node-tests/fixtures/config.xml';
-  const tmpConfigPath = 'tmp/config.xml'
-  const tmpFixturePath = 'tmp/config.xml';
+  const configFixtureDir = 'node-tests/fixtures/config.xml';
+  const tmpConfigPath = 'tmp/config.xml';
 
   const svgPath = 'node-tests/fixtures/icon.svg';
   const pngPath = 'icons';
@@ -25,13 +24,11 @@ describe('IconTask', function() {
   before((done) => {
     if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');
 
-    const fixtureStream = fs.createReadStream(`${fixturePath}/no-platform-nodes.xml`);
-    const tmpFixtureStream = fs.createWriteStream(tmpFixturePath);
-    fixtureStream.pipe(tmpFixtureStream);
-
-    tmpFixtureStream.on('finish', () => {
-      done();
-    });
+    const fixturePath = `${configFixtureDir}/no-platform-nodes.xml`;
+    const fixtureStream = fs.createReadStream(fixturePath);
+    const tmpConfigStream = fs.createWriteStream(tmpConfigPath);
+    fixtureStream.pipe(tmpConfigStream);
+    tmpConfigStream.on('finish', () => { done(); });
   });
 
   after(() => {
@@ -55,7 +52,8 @@ describe('IconTask', function() {
 
       after(() => {
         platformSizes.items.forEach((size) => {
-          const path = `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
+          const path =
+            `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
           fs.unlinkSync(path);
         });
         fs.rmdirSync(`${projectPath}/${pngPath}/${platform}`);
@@ -66,7 +64,8 @@ describe('IconTask', function() {
         task.then(() => {
           try {
             platformSizes.items.forEach((size) => {
-              const path = `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
+              const path =
+                `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
 
               expect(fs.existsSync(path)).to.equal(true);
               expect(sizeOf(path).width).to.equal(size.size);
