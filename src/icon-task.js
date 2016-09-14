@@ -16,18 +16,18 @@ const _defaults     = require('lodash').defaults;
 const _forOwn       = require('lodash').forOwn;
 const _union        = require('lodash').union;
 
-const getIcons = function(platforms) {
-  let targets = [];
+const getPlatformSizes = function(platforms) {
+  let platformSizes = [];
 
   if (platforms.length === 0 || platforms.indexOf('all') > -1) {
     platforms = ['ios', 'android', 'windows', 'blackberry'];
   }
 
   platforms.forEach((platform) => {
-    targets[platform] = DefaultIcons[platform];
+    platformSizes[platform] = DefaultIcons[platform];
   });
 
-  return targets;
+  return platformSizes;
 };
 
 module.exports = function(opts) {
@@ -56,10 +56,10 @@ module.exports = function(opts) {
       process.exit();
     }
 
-    const targetIcons = getIcons(opts.platforms);
+    const platformSizes = getPlatformSizes(opts.platforms);
     let rasterizeQueue = [];
 
-    _forOwn(targetIcons, (icons, platform) => {
+    _forOwn(platformSizes, (icons, platform) => {
       MakeDir('./', `${destPath}/${platform}`);
 
       icons.items.map((item) => {
@@ -75,7 +75,7 @@ module.exports = function(opts) {
     })
     .then(SaveCdvXML({
       projectPath: opts.projectPath,
-      desiredNodes: targetIcons,
+      desiredNodes: platformSizes,
       keyName: 'icon',
       serializeFn: SerializeIcon
     }))
