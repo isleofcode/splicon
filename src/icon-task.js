@@ -30,6 +30,11 @@ const getPlatformSizes = function(platforms) {
   return platformSizes;
 };
 
+const abort = function(msg) {
+  console.log(chalk.red(`${msg}. Aborting`));
+  process.exit();
+}
+
 module.exports = function(opts) {
   return new RSVP.Promise((resolve) => {
     if (opts === undefined) opts = {};
@@ -43,17 +48,11 @@ module.exports = function(opts) {
     let destPath = `${opts.projectPath}/${opts.dest}`;
 
     if (!existsSync(opts.source)) {
-      console.log(chalk.red(
-        `Source icon ${opts.source} does not exist. Aborting`
-      ));
-      process.exit();
+      abort(`Source icon ${opts.source} does not exist`);
     }
 
     if(!ValidPlatform(opts.platforms)) {
-      console.log(chalk.red(
-        `Platforms ${opts.platforms} are not all valid. Aborting`
-      ));
-      process.exit();
+      abort(`Platforms ${opts.platforms} are not all valid`);
     }
 
     const platformSizes = getPlatformSizes(opts.platforms);
