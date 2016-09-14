@@ -60,7 +60,7 @@ splicon ships with a Babel-fied version of svg2png in vendor with
 [a single source modification](https://github.com/isleofcode/splicon/commit/647b2a7d931bc282da079c646e65adaf39f28bec).
 
 This does not imply the packaged version of svg2png will support Node 0.12 in
-other use cases. This is a stopgap solution.
+other use cases and should be considered a stopgap solution.
 
 ## Contributing
 
