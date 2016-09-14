@@ -45,7 +45,6 @@ module.exports = function(opts) {
       projectPath: './cordova',
       platforms: ['all']
     });
-    let destPath = `${opts.projectPath}/${opts.dest}`;
 
     if (!existsSync(opts.source)) {
       abort(`Source icon ${opts.source} does not exist`);
@@ -59,7 +58,7 @@ module.exports = function(opts) {
     let rasterizeQueue = [];
 
     _forOwn(platformSizes, (icons, platform) => {
-      MakeDir('./', `${destPath}/${platform}`);
+      MakeDir('./', `${opts.projectPath}/${opts.dest}/${platform}`);
 
       icons.items.map((item) => {
         item.src = `${opts.dest}/${platform}/${item.name}.png`;
