@@ -49,13 +49,6 @@ module.exports = function(opts) {
       process.exit();
     }
 
-    if (!existsSync(destPath)) {
-      console.log(chalk.yellow(
-        `dest path ${destPath} does not exist. creating it for you`
-      ));
-      MakeDir('./', destPath);
-    }
-
     if(!ValidPlatform(opts.platforms)) {
       console.log(chalk.red(
         `Platforms ${opts.platforms} are not all valid. Aborting`
