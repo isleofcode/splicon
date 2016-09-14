@@ -3,8 +3,7 @@ Splicon (beta)
 
 Splicon is a command-line tool and library for generating icons and splash
 screens for Cordova projects. It generates the images for each platform's
-required sizes using a single source SVG and updates the Cordova project's
-config.xml.
+required sizes using a single source SVG and updates the project's config.xml.
 
 It was originally built for use in [ember-cordova](https://github.com/isleofcode/ember-cordova).
 
