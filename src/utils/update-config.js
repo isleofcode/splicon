@@ -90,7 +90,7 @@ const addNodes = function(json, opts) {
    See src/default-icons for an example
 
    keyName: String
-   probably icon or splash, what is the config.xml node name?
+   `icon` or `splash`
 
    serializeFn: Function
    Given a single node from desiredNodes, serialize to config.xml format
