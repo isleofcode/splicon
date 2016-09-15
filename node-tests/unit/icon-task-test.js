@@ -60,7 +60,7 @@ describe('IconTask', function() {
         fs.rmdirSync(`${projectPath}/${pngPath}`);
       });
 
-      it('generates the icons', (done) => {
+      it('writes the icons', (done) => {
         task.then(() => {
           try {
             platformSizes.items.forEach((size) => {
