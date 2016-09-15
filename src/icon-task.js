@@ -59,7 +59,7 @@ module.exports = function(opts) {
     RasterizeList({
       source: opts.source,
       projectPath: opts.projectPath,
-      dest: `${opts.dest}`,
+      dest: opts.dest,
       platformSizes: platformSizes
     })
     .then((updatedPlatformSizes) => {
