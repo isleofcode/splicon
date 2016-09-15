@@ -2,7 +2,7 @@
 'use strict';
 
 const DefaultIcons  = require('./default-icons');
-const RasterizeList = require('./utils/rasterize-list');
+const WriteImages   = require('./utils/write-images');
 const SaveCdvXML    = require('./utils/save-cordova-xml');
 const MakeDir       = require('./utils/make-dir');
 const SerializeIcon = require('./utils/serialize-icon');
@@ -56,7 +56,7 @@ module.exports = function(opts) {
 
     const platformSizes = getPlatformSizes(opts.platforms);
 
-    RasterizeList({
+    WriteImages({
       source: opts.source,
       projectPath: opts.projectPath,
       dest: opts.dest,

@@ -2,13 +2,13 @@
 
 const expect        = require('../../helpers/expect');
 
-const RasterizeList = require('../../../src/utils/rasterize-list');
+const WriteImages   = require('../../../src/utils/write-images');
 
 const fs            = require('fs');
 const sizeOf        = require('image-size');
 const _forOwn       = require('lodash').forOwn;
 
-describe('RasterizeList', function() {
+describe('WriteImages', function() {
   // Hitting the file system is slow
   this.timeout(0);
 
@@ -34,7 +34,7 @@ describe('RasterizeList', function() {
     let subject;
 
     before(() => {
-      subject = RasterizeList({
+      subject = WriteImages({
         source: source,
         projectPath: projectPath,
         dest: dest,
