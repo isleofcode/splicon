@@ -55,28 +55,21 @@ module.exports = function(opts) {
     }
 
     const platformSizes = getPlatformSizes(opts.platforms);
-    let rasterizeQueue = [];
-
-    _forOwn(platformSizes, (icons, platform) => {
-      MakeDir('./', `${opts.projectPath}/${opts.dest}/${platform}`);
-
-      icons.items.map((item) => {
-        item.src = `${opts.dest}/${platform}/${item.name}.png`;
-        item.path = normalizePath(`${opts.projectPath}/${item.src}`);
-      });
-      rasterizeQueue = _union(rasterizeQueue, icons.items);
-    });
 
     RasterizeList({
-      src: opts.source,
-      toRasterize: rasterizeQueue
-    })
-    .then(SaveCdvXML({
+      source: opts.source,
       projectPath: opts.projectPath,
-      desiredNodes: platformSizes,
-      keyName: 'icon',
-      serializeFn: SerializeIcon
-    }))
+      dest: `${opts.dest}`,
+      platformSizes: platformSizes
+    })
+    .then((updatedPlatformSizes) => {
+      SaveCdvXML({
+        projectPath: opts.projectPath,
+        desiredNodes: updatedPlatformSizes,
+        keyName: 'icon',
+        serializeFn: SerializeIcon
+      })
+    })
     .then(resolve);
   });
 };

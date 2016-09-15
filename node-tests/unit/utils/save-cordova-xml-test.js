@@ -25,7 +25,7 @@ describe('SaveCordovaXML', function() {
       ios: {
         itemKey: 'width',
         items: [
-          { size: 60,  name: 'icon-60', src: 'tmp/ios/icon-60.png' }
+          { size: 60,  name: 'icon-60', path: 'tmp/ios/icon-60.png' }
         ]
       }
     };

@@ -6,6 +6,7 @@ const RasterizeList = require('../../../src/utils/rasterize-list');
 
 const fs            = require('fs');
 const sizeOf        = require('image-size');
+const _forOwn       = require('lodash').forOwn;
 
 describe('RasterizeList', function() {
   // Hitting the file system is slow
@@ -15,38 +16,62 @@ describe('RasterizeList', function() {
     if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');
   });
 
-  context('when src and toRasterize', () => {
-    const src = 'node-tests/fixtures/icon.svg';
-    const toRasterize = [
-      {
-        size: 60,
-        name: 'icon-60',
-        path: 'tmp/icon-60.png'
+  context('when source, projectPath, dest, and platformSizes', () => {
+    const source = 'node-tests/fixtures/icon.svg';
+    const projectPath = 'tmp';
+    const dest = 'icons';
+    const platformSizes = {
+      ios: {
+        itemKey: 'width',
+        items: [
+          {
+            size: 57,
+            name: 'icon'
+          }
+        ]
       }
-    ];
+    };
     let subject;
 
     before(() => {
-      subject = RasterizeList({src: src, toRasterize: toRasterize});
-    });
-
-    after(() => {
-      toRasterize.forEach((rasterize) => {
-        fs.unlinkSync(rasterize.path);
+      subject = RasterizeList({
+        source: source,
+        projectPath: projectPath,
+        dest: dest,
+        platformSizes: platformSizes
       });
     });
 
-    it('returns a promise that resolves to an array', (done) => {
-      expect(subject).to.eventually.be.a('array').notify(done);
+    after(() => {
+      platformSizes['ios'].items.forEach((rasterize) =>  {
+        fs.unlinkSync(`${projectPath}/${rasterize.path}`);
+      });
+    });
+
+    it('resolves to platform sizes updated with paths', (done) => {
+      subject.then((updatedPlatformSizes) => {
+        try {
+          _forOwn(updatedPlatformSizes, (icons, platform) => {
+            icons.items.map((item) => {
+              const path = `${dest}/${platform}/${item.name}.png`;
+              expect(item.path).to.equal(path);
+            });
+          });
+          done();
+        } catch(e) {
+          done(e);
+        }
+      });
     });
 
     it('writes the files to rasterize at the right size', (done) => {
-      subject.then(() => {
+      subject.then((updatedPlatformSizes) => {
         try {
-          toRasterize.forEach((rasterize) => {
-            expect(fs.existsSync(rasterize.path)).to.equal(true);
-            expect(sizeOf(rasterize.path).width).to.equal(rasterize.size);
-            expect(sizeOf(rasterize.path).height).to.equal(rasterize.size);
+          updatedPlatformSizes['ios'].items.forEach((rasterize) => {
+            const writePath = `${projectPath}/${rasterize.path}`;
+            expect(fs.existsSync(writePath)).to.equal(true);
+            expect(sizeOf(writePath).width).to.equal(rasterize.size);
+            expect(sizeOf(writePath).height).to.equal(rasterize.size);
           });
           done();
         } catch(e) {

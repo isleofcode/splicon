@@ -4,7 +4,7 @@
 const _get          = require('lodash').get;
 
 module.exports = function (platform, projectPath, iconData) {
-  let props = { src: iconData.src };
+  let props = { src: iconData.path };
 
   if (platform === 'ios') {
     props.height = iconData.size;
