@@ -20,12 +20,12 @@ describe('SaveCordovaXML', function() {
   });
 
   context('when projectPath, desiredNodes, keyName, and serializeFn', () => {
-    const projectPath = 'tmp/';
+    const projectPath = 'tmp';
     const desiredNodes = {
       ios: {
         itemKey: 'width',
         items: [
-          { size: 60,  name: 'icon-60', path: 'tmp/ios/icon-60.png' }
+          { size: 57,  name: 'icon', path: 'res/icon/ios/icon.png' }
         ]
       }
     };
