@@ -11,10 +11,7 @@ const ValidPlatform = require('./utils/validate-platforms');
 const RSVP          = require('rsvp');
 const chalk         = require('chalk');
 const existsSync    = require('fs').existsSync;
-const normalizePath = require('path').normalize;
 const _defaults     = require('lodash').defaults;
-const _forOwn       = require('lodash').forOwn;
-const _union        = require('lodash').union;
 
 const getPlatformSizes = function(platforms) {
   let platformSizes = [];
