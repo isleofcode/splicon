@@ -3,7 +3,7 @@
 
 const DefaultIcons  = require('./default-icons');
 const WriteImages   = require('./utils/write-images');
-const SaveCdvXML    = require('./utils/save-cordova-xml');
+const UpdateConfig  = require('./utils/update-config');
 const MakeDir       = require('./utils/make-dir');
 const SerializeIcon = require('./utils/serialize-icon');
 const ValidPlatform = require('./utils/validate-platforms');
@@ -63,7 +63,7 @@ module.exports = function(opts) {
       platformSizes: platformSizes
     })
     .then((updatedPlatformSizes) => {
-      SaveCdvXML({
+      UpdateConfig({
         projectPath: opts.projectPath,
         desiredNodes: updatedPlatformSizes,
         keyName: 'icon',
