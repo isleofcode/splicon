@@ -43,7 +43,16 @@ There is a TODO to enhance CLI flag, but in most cases this is handled in
 
 ## Splash Screens
 
-Not done yet, nearly there.
+```
+splicon-splashes
+```
+
+Like `splicon-icons`, by default images for all platforms will be generated. To
+generate images for specific platforms you can pass the platforms as arguments:
+
+```
+splicon-splashes ios
+```
 
 ## Testing
 
