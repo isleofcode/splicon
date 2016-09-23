@@ -7,17 +7,12 @@ const WriteImages   = require('./utils/write-images');
 const UpdateConfig  = require('./utils/update-config');
 const MakeDir       = require('./utils/make-dir');
 const SerializeIcon = require('./utils/serialize-icon');
+const AbortTask     = require('./utils/abort-task');
 const ValidPlatform = require('./utils/validate-platforms');
 
 const RSVP          = require('rsvp');
-const chalk         = require('chalk');
 const existsSync    = require('fs').existsSync;
 const _defaults     = require('lodash').defaults;
-
-const abort = function(msg) {
-  console.log(chalk.red(`${msg}. Aborting`));
-  process.exit();
-}
 
 module.exports = function(opts) {
   return new RSVP.Promise((resolve) => {
@@ -31,11 +26,11 @@ module.exports = function(opts) {
     });
 
     if (!existsSync(opts.source)) {
-      abort(`Source icon ${opts.source} does not exist`);
+      AbortTask(`Source icon ${opts.source} does not exist`);
     }
 
     if(!ValidPlatform(opts.platforms)) {
-      abort(`Platforms ${opts.platforms} are not all valid`);
+      AbortTask(`Platforms ${opts.platforms} are not all valid`);
     }
 
     const platformSizes = GetPlatSizes(PlatformSizes, opts.platforms);
