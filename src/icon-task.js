@@ -2,6 +2,7 @@
 'use strict';
 
 const PlatformSizes = require('./platform-icon-sizes');
+const GetPlatSizes  = require('./utils/get-platform-sizes');
 const WriteImages   = require('./utils/write-images');
 const UpdateConfig  = require('./utils/update-config');
 const MakeDir       = require('./utils/make-dir');
@@ -12,20 +13,6 @@ const RSVP          = require('rsvp');
 const chalk         = require('chalk');
 const existsSync    = require('fs').existsSync;
 const _defaults     = require('lodash').defaults;
-
-const getPlatformSizes = function(platforms) {
-  let platformSizes = [];
-
-  if (platforms.length === 0 || platforms.indexOf('all') > -1) {
-    platforms = ['ios', 'android', 'windows', 'blackberry'];
-  }
-
-  platforms.forEach((platform) => {
-    platformSizes[platform] = PlatformSizes[platform];
-  });
-
-  return platformSizes;
-};
 
 const abort = function(msg) {
   console.log(chalk.red(`${msg}. Aborting`));
@@ -51,7 +38,7 @@ module.exports = function(opts) {
       abort(`Platforms ${opts.platforms} are not all valid`);
     }
 
-    const platformSizes = getPlatformSizes(opts.platforms);
+    const platformSizes = GetPlatSizes(PlatformSizes, opts.platforms);
 
     WriteImages({
       source: opts.source,
