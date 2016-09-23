@@ -1,13 +1,13 @@
 /* jshint node:true, esversion: 6 */
 'use strict';
 
-const PlatformSizes = require('./platform-icon-sizes');
-const GetPlatSizes  = require('./utils/get-platform-sizes');
-const WriteImages   = require('./utils/write-images');
-const UpdateConfig  = require('./utils/update-config');
-const SerializeIcon = require('./utils/serialize-icon');
 const AbortTask     = require('./utils/abort-task');
+const GetPlatSizes  = require('./utils/get-platform-sizes');
+const PlatformSizes = require('./platform-icon-sizes');
+const SerializeIcon = require('./utils/serialize-icon');
+const UpdateConfig  = require('./utils/update-config');
 const ValidPlatform = require('./utils/validate-platforms');
+const WriteImages   = require('./utils/write-images');
 
 const RSVP          = require('rsvp');
 const existsSync    = require('fs').existsSync;
