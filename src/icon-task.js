@@ -5,7 +5,6 @@ const PlatformSizes = require('./platform-icon-sizes');
 const GetPlatSizes  = require('./utils/get-platform-sizes');
 const WriteImages   = require('./utils/write-images');
 const UpdateConfig  = require('./utils/update-config');
-const MakeDir       = require('./utils/make-dir');
 const SerializeIcon = require('./utils/serialize-icon');
 const AbortTask     = require('./utils/abort-task');
 const ValidPlatform = require('./utils/validate-platforms');
