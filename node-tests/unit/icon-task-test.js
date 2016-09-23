@@ -8,7 +8,7 @@ const fs            = require('fs');
 const sizeOf        = require('image-size');
 const parseString   = require('xml2js').parseString;
 const _find         = require('lodash').find;
-const DefaultIcons  = require('../../src/default-icons');
+const PlatformSizes = require('../../src/platform-icon-sizes');
 
 describe('IconTask', function() {
   // Hitting the file system is slow
@@ -38,7 +38,7 @@ describe('IconTask', function() {
   context('when platforms', () => {
     context('when ios', () => {
       const platform = 'ios';
-      const platformSizes = DefaultIcons[platform];
+      const platformSizes = PlatformSizes[platform];
       let task;
 
       before(() => {

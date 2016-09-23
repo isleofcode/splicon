@@ -1,7 +1,7 @@
 /* jshint node:true, esversion: 6 */
 'use strict';
 
-const DefaultIcons  = require('./default-icons');
+const PlatformSizes = require('./platform-icon-sizes');
 const WriteImages   = require('./utils/write-images');
 const UpdateConfig  = require('./utils/update-config');
 const MakeDir       = require('./utils/make-dir');
@@ -21,7 +21,7 @@ const getPlatformSizes = function(platforms) {
   }
 
   platforms.forEach((platform) => {
-    platformSizes[platform] = DefaultIcons[platform];
+    platformSizes[platform] = PlatformSizes[platform];
   });
 
   return platformSizes;

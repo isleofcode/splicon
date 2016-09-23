@@ -87,7 +87,7 @@ const addNodes = function(json, opts) {
 
    desiredNodes Array:
    {ios: [], android: [], blackberry: []}
-   See src/default-icons for an example
+   See src/platform-icon-sizes for an example
 
    keyName: String
    `icon` or `splash`
