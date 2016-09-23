@@ -2,8 +2,8 @@
 
 module.exports = {
   ios: {
-    itemKey: 'width',
-    items: [
+    sizeKey: 'width',
+    sizes: [
       { size : 40,  name : 'icon-40' },
       { size : 57,  name : 'icon' },
       { size : 80,  name : 'icon-40@2x' },
@@ -25,8 +25,8 @@ module.exports = {
   },
 
   android: {
-    itemKey: 'density',
-    items: [
+    sizeKey: 'density',
+    sizes: [
       { size : 36,  name : 'ldpi' },
       { size : 48,  name : 'mdpi' },
       { size : 72,  name : 'hdpi' },
@@ -37,16 +37,16 @@ module.exports = {
   },
 
   blackberry: {
-    itemKey: 'src',
-    items: [
+    sizeKey: 'src',
+    sizes: [
       { size : 86,  name : 'icon-86' },
       { size : 150, name : 'icon-150' }
     ]
   },
 
   windows: {
-    itemKey: 'width',
-    items: [
+    sizeKey: 'width',
+    sizes: [
       { size : 50,  name : 'StoreLogo' },
       { size : 30,  name : 'smalllogo', attrs: { target : 'Square30x30Logo' }},
       { size : 44,  name : 'Square44x44Logo' },

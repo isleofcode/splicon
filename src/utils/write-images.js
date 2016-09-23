@@ -18,11 +18,11 @@ module.exports = function (opts) {
     _forOwn(opts.platformSizes, (icons, platform) => {
       MakeDir('./', `${opts.projectPath}/${opts.dest}/${platform}`);
 
-      icons.items.map((item) => {
-        item.path = `${opts.dest}/${platform}/${item.name}.png`;
+      icons.sizes.map((size) => {
+        size.path = `${opts.dest}/${platform}/${size.name}.png`;
       });
 
-      rasterizeQueue = _union(rasterizeQueue, icons.items);
+      rasterizeQueue = _union(rasterizeQueue, icons.sizes);
     });
 
     rasterizeQueue.forEach((rasterize) => {

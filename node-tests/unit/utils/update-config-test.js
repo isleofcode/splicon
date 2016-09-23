@@ -23,8 +23,8 @@ describe('UpdateConfig', function() {
     const projectPath = 'tmp';
     const desiredNodes = {
       ios: {
-        itemKey: 'width',
-        items: [
+        sizeKey: 'width',
+        sizes: [
           { size: 57,  name: 'icon', path: 'res/icon/ios/icon.png' }
         ]
       }

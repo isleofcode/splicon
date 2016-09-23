@@ -51,7 +51,7 @@ describe('IconTask', function() {
       });
 
       after(() => {
-        platformSizes.items.forEach((size) => {
+        platformSizes.sizes.forEach((size) => {
           const path =
             `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
           fs.unlinkSync(path);
@@ -63,7 +63,7 @@ describe('IconTask', function() {
       it('writes the icons', (done) => {
         task.then(() => {
           try {
-            platformSizes.items.forEach((size) => {
+            platformSizes.sizes.forEach((size) => {
               const path =
                 `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
 
@@ -96,7 +96,7 @@ describe('IconTask', function() {
                 return iconNode.$;
               });
 
-              platformSizes.items.forEach((size) => {
+              platformSizes.sizes.forEach((size) => {
                 const attrs = {
                   src: `${pngPath}/${platform}/${size.name}.png`,
                   height: size.size.toString(),

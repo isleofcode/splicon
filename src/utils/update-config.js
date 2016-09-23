@@ -59,15 +59,15 @@ const addNodes = function(json, opts) {
     }
 
     //Icons do not have a consistent node for detection
-    const itemKey = nodeData.itemKey;
+    const sizeKey = nodeData.sizeKey;
 
-    nodeData.items.forEach((node) => {
+    nodeData.sizes.forEach((node) => {
       //If node exists, overwrite it
       let props = opts.serializeFn(platformName, opts.projectPath, node);
       _filter(targetNodes, (item) => {
         if (!item) return;
 
-        if (item.$[itemKey] === String(props[itemKey])) {
+        if (item.$[sizeKey] === String(props[sizeKey])) {
           _remove(targetNodes, item);
         }
       });

@@ -22,8 +22,8 @@ describe('WriteImages', function() {
     const dest = 'icons';
     const platformSizes = {
       ios: {
-        itemKey: 'width',
-        items: [
+        sizeKey: 'width',
+        sizes: [
           {
             size: 57,
             name: 'icon'
@@ -43,7 +43,7 @@ describe('WriteImages', function() {
     });
 
     after(() => {
-      platformSizes['ios'].items.forEach((rasterize) =>  {
+      platformSizes['ios'].sizes.forEach((rasterize) =>  {
         fs.unlinkSync(`${projectPath}/${rasterize.path}`);
       });
     });
@@ -52,9 +52,9 @@ describe('WriteImages', function() {
       subject.then((updatedPlatformSizes) => {
         try {
           _forOwn(updatedPlatformSizes, (icons, platform) => {
-            icons.items.map((item) => {
-              const path = `${dest}/${platform}/${item.name}.png`;
-              expect(item.path).to.equal(path);
+            icons.sizes.map((size) => {
+              const path = `${dest}/${platform}/${size.name}.png`;
+              expect(size.path).to.equal(path);
             });
           });
           done();
@@ -67,7 +67,7 @@ describe('WriteImages', function() {
     it('writes the files to rasterize at the right size', (done) => {
       subject.then((updatedPlatformSizes) => {
         try {
-          updatedPlatformSizes['ios'].items.forEach((rasterize) => {
+          updatedPlatformSizes['ios'].sizes.forEach((rasterize) => {
             const writePath = `${projectPath}/${rasterize.path}`;
             expect(fs.existsSync(writePath)).to.equal(true);
             expect(sizeOf(writePath).width).to.equal(rasterize.size);
