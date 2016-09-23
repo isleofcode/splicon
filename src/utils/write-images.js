@@ -38,8 +38,6 @@ module.exports = function (opts) {
       rasterizeTasks.push(rasterizeTask);
     });
 
-    RSVP.all(rasterizeTasks).then(() => {
-      resolve(opts.platformSizes)
-    });
+    RSVP.all(rasterizeTasks).then(() => resolve(opts.platformSizes));
   });
 };
