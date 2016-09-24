@@ -28,7 +28,7 @@ describe('IconTask', function() {
     const fixtureStream = fs.createReadStream(fixturePath);
     const tmpConfigStream = fs.createWriteStream(tmpConfigPath);
     fixtureStream.pipe(tmpConfigStream);
-    tmpConfigStream.on('finish', () => { done(); });
+    tmpConfigStream.on('finish', () => done());
   });
 
   after(() => {
