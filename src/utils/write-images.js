@@ -26,8 +26,15 @@ module.exports = function (opts) {
     });
 
     rasterizeQueue.forEach((rasterize) => {
-      const width = rasterize.size;
-      const height = rasterize.size;
+      let width, height;
+
+      if (rasterize.size) {
+        width = rasterize.size;
+        height = rasterize.size;
+      } else {
+        width = rasterize.width;
+        height = rasterize.height;
+      }
 
       let rasterizeTask = svg2png(buffer, { width: width, height: height })
       .then((pngBuffer) => {
