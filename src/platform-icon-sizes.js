@@ -2,7 +2,7 @@
 
 module.exports = {
   ios: {
-    sizeKey: 'width',
+    idAttributes: ['width'],
     sizes: [
       { size : 40,  name : 'icon-40' },
       { size : 57,  name : 'icon' },
@@ -25,7 +25,7 @@ module.exports = {
   },
 
   android: {
-    sizeKey: 'density',
+    idAttributes: ['density'],
     sizes: [
       { size : 36,  name : 'ldpi' },
       { size : 48,  name : 'mdpi' },
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   blackberry: {
-    sizeKey: 'src',
+    idAttributes: ['src'],
     sizes: [
       { size : 86,  name : 'icon-86' },
       { size : 150, name : 'icon-150' }
@@ -45,7 +45,7 @@ module.exports = {
   },
 
   windows: {
-    sizeKey: 'width',
+    idAttributes: ['width'],
     sizes: [
       { size : 50,  name : 'StoreLogo' },
       { size : 30,  name : 'smalllogo', attrs: { target : 'Square30x30Logo' }},
