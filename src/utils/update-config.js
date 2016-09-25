@@ -11,6 +11,7 @@ const _findIndex    = require('lodash').findIndex;
 const _forOwn       = require('lodash').forOwn;
 const _filter       = require('lodash').filter;
 const _remove       = require('lodash').remove;
+const _pick         = require('lodash').pick;
 const _pullAt       = require('lodash').pullAt;
 
 const parseXML = function(xmlPath) {
@@ -58,21 +59,24 @@ const addNodes = function(json, opts) {
       targetNodes = [];
     }
 
-    //Icons do not have a consistent node for detection
-    const sizeKey = nodeData.sizeKey;
+    // Icons do not have a consistent node for detection
+    const idAttrs = nodeData.idAttrs;
 
     nodeData.sizes.forEach((node) => {
       //If node exists, overwrite it
-      let props = opts.serializeFn(platformName, opts.projectPath, node);
+      let newAttrs = opts.serializeFn(platformName, opts.projectPath, node);
+
       _filter(targetNodes, (item) => {
         if (!item) return;
 
-        if (item.$[sizeKey] === String(props[sizeKey])) {
+        // Compare using idAttrs because file names cannot be guaranteed to not
+        // not change in future versions.
+        if (_pick(item.$, idAttrs) === _pick(newAttrs, idAttrs)) {
           _remove(targetNodes, item);
         }
       });
 
-      targetNodes.push( {$: props} );
+      targetNodes.push( {$: newAttrs} );
     });
 
     platformNode[opts.keyName] = targetNodes;
