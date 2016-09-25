@@ -32,7 +32,7 @@ module.exports = function (opts) {
       let rasterizeTask = svg2png(buffer, { width: width, height: height })
       .then((pngBuffer) => {
         const writePath = `${opts.projectPath}/${rasterize.path}`;
-        fs.writeFileSync(normalizePath(writePath), pngBuffer)
+        fs.writeFileSync(normalizePath(writePath), pngBuffer);
       })
 
       rasterizeTasks.push(rasterizeTask);
