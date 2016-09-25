@@ -39,7 +39,7 @@ const addNodes = function(json, opts) {
   _forOwn(opts.desiredNodes, (nodeData, platformName) => {
 
     //Cordova wont always have a platforms: []
-    if(!json.widget.platform) json.widget.platform = [];
+    if (!json.widget.platform) json.widget.platform = [];
 
     //See if platform already exists
     let platformNode;
