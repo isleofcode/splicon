@@ -28,7 +28,7 @@ module.exports = function(opts) {
       AbortTask(`Source icon ${opts.source} does not exist`);
     }
 
-    if(!ValidPlatform(opts.platforms)) {
+    if (!ValidPlatform(opts.platforms)) {
       AbortTask(`Platforms ${opts.platforms} are not all valid`);
     }
 
