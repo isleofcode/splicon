@@ -32,6 +32,10 @@ module.exports = function(opts) {
       AbortTask(`Platforms ${opts.platforms} are not all valid`);
     }
 
+    if (opts.platforms.length === 0 || opts.platforms.indexOf('all') > -1) {
+      opts.platforms = ['ios', 'android', 'windows', 'blackberry'];
+    }
+
     const platformSizes = GetPlatSizes(PlatformSizes, opts.platforms);
 
     WriteImages({
