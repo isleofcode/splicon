@@ -72,7 +72,7 @@ const addNodes = function(json, opts) {
         }
       });
 
-     targetNodes.push( {$: props} );
+      targetNodes.push( {$: props} );
     });
 
     platformNode[opts.keyName] = targetNodes;
