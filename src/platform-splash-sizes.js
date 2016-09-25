@@ -2,7 +2,7 @@
 
 module.exports = {
   ios: {
-    idAttributes: 'width,height',
+    idAttributes: ['width', 'height'],
     sizes: [
       { width:  640, height:  960, name: '640-960' },
       { width:  960, height:  640, name: '960-640' },
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   android: {
-    idAttributes: 'density',
+    idAttributes: ['density'],
     sizes: [
       { width:  200, height:  320, name: 'port-ldpi' },
       { width:  320, height:  200, name: 'land-ldpi' },
