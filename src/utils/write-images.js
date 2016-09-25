@@ -2,9 +2,9 @@
 'use strict';
 
 const MakeDir       = require('./make-dir');
+const svg2png       = require('./svg2png');
 const fs            = require('fs');
 const RSVP          = require('rsvp');
-const svg2png       = require('../../vendor/svg2png/svg2png');
 const normalizePath = require('path').normalize;
 const _forOwn       = require('lodash').forOwn;
 const _union        = require('lodash').union;
