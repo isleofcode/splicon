@@ -10,7 +10,8 @@
     "prepublish": "npm run compile"
   },
   "bin": {
-    "splicon-icons": "bin/splicon-icons.js"
+    "splicon-icons": "bin/splicon-icons.js",
+    "splicon-splashes": "bin/splicon-splashes.js"
   },
   "keywords": [
     "cordova",
