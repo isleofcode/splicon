@@ -60,17 +60,6 @@ splicon-splashes ios
 npm test
 ```
 
-## A Note on Dependencies
-
-One of the main dependencies of this library is
-[svg2png](https://github.com/domenic/svg2png). Unfortunately svg2png only
-supports Node 4+ whereas ember-cordova officially supports Node 0.12+. Thus
-splicon ships with a Babel-fied version of svg2png in vendor with
-[a single source modification](https://github.com/isleofcode/splicon/commit/647b2a7d931bc282da079c646e65adaf39f28bec).
-
-This does not imply the packaged version of svg2png will support Node 0.12 in
-other use cases and should be considered a stopgap solution.
-
 ## Contributing
 
 PRs are very welcome. You can read our style guides
