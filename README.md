@@ -31,7 +31,7 @@ By default, all platforms will be generated. You can pass the platforms
 you would like generated as arguments:
 
 ```
-splicon icons ios android windows
+splicon-icons ios android windows
 ```
 
 For more granular control (such as setting the destination path), you
