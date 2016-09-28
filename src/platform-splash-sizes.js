@@ -13,8 +13,8 @@ module.exports = {
       { width:  750, height: 1334, name: '750-1334' },
       { width: 1334, height:  750, name: '1334-750' },
 
-      { width: 1080, height: 1920, name: '1080-1920' },
-      { width: 1920, height: 1080, name: '1920-1080' },
+      { width: 1242, height: 2208, name: '1242-2208' },
+      { width: 2208, height: 1242, name: '2208-1242' },
 
       { width:  768, height: 1024, name: '768-1024' },
       { width: 1024, height:  768, name: '1024-768' },
