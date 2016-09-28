@@ -5,7 +5,7 @@
 
 //TODO - better opts parsing, allow source/dest
 
-const SplashTask    = require('../lib/splash-task');
+const SplashTask    = require('../src/splash-task');
 const chalk         = require('chalk');
 
 (function() {

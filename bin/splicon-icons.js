@@ -5,7 +5,7 @@
 
 //TODO - better opts parsing, allow source/dest
 
-const IconTask      = require('../lib/icon-task');
+const IconTask      = require('../src/icon-task');
 const chalk         = require('chalk');
 
 (function() {
