@@ -5,16 +5,16 @@
 
 //TODO - better opts parsing, allow source/dest
 
-const IconTask      = require('../src/icon-task');
+const SplashTask    = require('../src/splash-task');
 const chalk         = require('chalk');
 
 (function() {
   const args = process.argv.slice(2);
   console.log(chalk.green(
-    `Generating cordova icons for ${args}`
+    `Generating cordova splashes for ${args}`
   ));
 
-  IconTask({platforms: args}).then(() => {
+  SplashTask({platforms: args}).then(() => {
     console.log(chalk.green(
       "Done!"
     ));

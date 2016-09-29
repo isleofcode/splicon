@@ -3,8 +3,8 @@
 
 const AbortTask     = require('./utils/abort-task');
 const GetPlatSizes  = require('./utils/get-platform-sizes');
-const PlatformSizes = require('./platform-icon-sizes');
-const SerializeIcon = require('./utils/serialize-icon');
+const PlatformSizes = require('./platform-splash-sizes');
+const SerialSplash  = require('./utils/serialize-splash');
 const UpdateConfig  = require('./utils/update-config');
 const ValidPlatform = require('./utils/validate-platforms');
 const WriteImages   = require('./utils/write-images');
@@ -18,14 +18,14 @@ module.exports = function(opts) {
     if (opts === undefined) opts = {};
 
     _defaults(opts, {
-      source: 'icon.svg',
-      dest: 'res/icon',
+      source: 'splash.svg',
+      dest: 'res/screen',
       projectPath: './cordova',
       platforms: ['all']
     });
 
     if (!existsSync(opts.source)) {
-      AbortTask(`Source icon ${opts.source} does not exist`);
+      AbortTask(`Source splash ${opts.source} does not exist`);
     }
 
     if (!ValidPlatform(opts.platforms)) {
@@ -33,7 +33,7 @@ module.exports = function(opts) {
     }
 
     if (opts.platforms.length === 0 || opts.platforms.indexOf('all') > -1) {
-      opts.platforms = ['ios', 'android', 'windows', 'blackberry'];
+      opts.platforms = ['ios', 'android'];
     }
 
     const platformSizes = GetPlatSizes(PlatformSizes, opts.platforms);
@@ -48,8 +48,8 @@ module.exports = function(opts) {
       UpdateConfig({
         projectPath: opts.projectPath,
         desiredNodes: updatedPlatformSizes,
-        keyName: 'icon',
-        serializeFn: SerializeIcon
+        keyName: 'splash',
+        serializeFn: SerialSplash
       })
     })
     .then(resolve);

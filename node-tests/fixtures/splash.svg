@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2732px" height="2732px" viewBox="0 0 2732 2732">
+  <defs>
+    <radialGradient id="aubergine" cx="50%" cy="50%" fx="50%" fy="50%" r="67.646262%">
+      <stop stop-color="#AA076B" offset="0%"></stop>
+      <stop stop-color="#61045F" offset="100%"></stop>
+    </radialGradient>
+  </defs>
+
+  <rect fill="url(#aubergine)" x="0" y="0" width="2732" height="2732"></rect>
+  <text font-family="HelveticaNeue-Thin, Helvetica Neue" font-size="200" font-weight="300" fill="#FFFFFF">
+    <tspan x="1071.7" y="1418">splicon</tspan>
+  </text>
+</svg>

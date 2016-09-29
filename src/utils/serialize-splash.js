@@ -7,15 +7,11 @@ module.exports = function (platform, projectPath, iconData) {
   let props = { src: iconData.path };
 
   if (platform === 'ios') {
-    props.height = iconData.size;
-    props.width = iconData.size;
+    props.width = iconData.width;
+    props.height = iconData.height;
   } else if (platform === 'android') {
     props.density = iconData.name;
-  } else if (platform === 'windows') {
-    const target = _get(iconData, 'attrs.target', iconData.name);
-    props.target = target;
   }
 
   return props;
 };
-

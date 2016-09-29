@@ -1,0 +1,50 @@
+/* jshint node:true, esversion: 6 */
+'use strict';
+
+const MakeDir       = require('./make-dir');
+const svg2png       = require('./svg2png');
+const fs            = require('fs');
+const RSVP          = require('rsvp');
+const normalizePath = require('path').normalize;
+const _forOwn       = require('lodash').forOwn;
+const _union        = require('lodash').union;
+
+module.exports = function (opts) {
+  return new RSVP.Promise((resolve) => {
+    let buffer = fs.readFileSync(opts.source);
+    let rasterizeTasks = [];
+    let rasterizeQueue = [];
+
+    _forOwn(opts.platformSizes, (icons, platform) => {
+      MakeDir('./', `${opts.projectPath}/${opts.dest}/${platform}`);
+
+      icons.sizes.map((size) => {
+        size.path = `${opts.dest}/${platform}/${size.name}.png`;
+      });
+
+      rasterizeQueue = _union(rasterizeQueue, icons.sizes);
+    });
+
+    rasterizeQueue.forEach((rasterize) => {
+      let width, height;
+
+      if (rasterize.size) {
+        width = rasterize.size;
+        height = rasterize.size;
+      } else {
+        width = rasterize.width;
+        height = rasterize.height;
+      }
+
+      let rasterizeTask = svg2png(buffer, { width: width, height: height })
+      .then((pngBuffer) => {
+        const writePath = `${opts.projectPath}/${rasterize.path}`;
+        fs.writeFileSync(normalizePath(writePath), pngBuffer);
+      })
+
+      rasterizeTasks.push(rasterizeTask);
+    });
+
+    RSVP.all(rasterizeTasks).then(() => resolve(opts.platformSizes));
+  });
+};

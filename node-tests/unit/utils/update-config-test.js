@@ -2,12 +2,12 @@
 
 const expect        = require('../../helpers/expect');
 
-const SaveCdvXML    = require('../../../src/utils/save-cordova-xml');
+const UpdateConfig  = require('../../../src/utils/update-config');
 
 const fs            = require('fs');
 const SerializeIcon = require('../../../src/utils/serialize-icon');
 
-describe('SaveCordovaXML', function() {
+describe('UpdateConfig', function() {
   const configFixtureDir = 'node-tests/fixtures/config.xml';
   const tmpConfigPath = 'tmp/config.xml';
 
@@ -20,12 +20,12 @@ describe('SaveCordovaXML', function() {
   });
 
   context('when projectPath, desiredNodes, keyName, and serializeFn', () => {
-    const projectPath = 'tmp/';
+    const projectPath = 'tmp';
     const desiredNodes = {
       ios: {
-        itemKey: 'width',
-        items: [
-          { size: 60,  name: 'icon-60', src: 'tmp/ios/icon-60.png' }
+        sizeKey: 'width',
+        sizes: [
+          { size: 57,  name: 'icon', path: 'res/icon/ios/icon.png' }
         ]
       }
     };
@@ -48,7 +48,7 @@ describe('SaveCordovaXML', function() {
       });
 
       it('it adds the platform node with icon nodes', (done) => {
-        SaveCdvXML(args).then(() => {
+        UpdateConfig(args).then(() => {
           const tmpConfig = fs.readFileSync(tmpConfigPath, 'utf8');
           const expectedConfigPath =
             `${configFixtureDir}/no-and-ios-platform-node-expected.xml`;
@@ -76,7 +76,7 @@ describe('SaveCordovaXML', function() {
       });
 
       it('it replaces the icon nodes', (done) => {
-        SaveCdvXML(args).then(() => {
+        UpdateConfig(args).then(() => {
           const tmpConfig = fs.readFileSync(tmpConfigPath, 'utf8');
           const expectedConfigPath =
             `${configFixtureDir}/no-and-ios-platform-node-expected.xml`;
@@ -104,7 +104,7 @@ describe('SaveCordovaXML', function() {
       });
 
       it('it adds the platform node with icon nodes', (done) => {
-        SaveCdvXML(args).then(() => {
+        UpdateConfig(args).then(() => {
           const tmpConfig = fs.readFileSync(tmpConfigPath, 'utf8');
           const expectedConfigPath =
             `${configFixtureDir}/android-platform-node-expected.xml`;

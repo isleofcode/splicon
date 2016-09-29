@@ -18,9 +18,9 @@
   <allow-intent href="geo:*"/>
   <allow-navigation href="*"/>
   <platform name="android">
-    <icon src="tmp/android/icon-60.png" height="72" width="72"/>
+    <icon src="res/icon/android/icon-60.png" height="72" width="72"/>
   </platform>
   <platform name="ios">
-    <icon src="tmp/ios/icon-60.png" height="60" width="60"/>
+    <icon src="res/icon/ios/icon.png" height="57" width="57"/>
   </platform>
 </widget>

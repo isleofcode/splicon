@@ -11,6 +11,7 @@ const _findIndex    = require('lodash').findIndex;
 const _forOwn       = require('lodash').forOwn;
 const _filter       = require('lodash').filter;
 const _remove       = require('lodash').remove;
+const _pick         = require('lodash').pick;
 const _pullAt       = require('lodash').pullAt;
 
 const parseXML = function(xmlPath) {
@@ -39,7 +40,7 @@ const addNodes = function(json, opts) {
   _forOwn(opts.desiredNodes, (nodeData, platformName) => {
 
     //Cordova wont always have a platforms: []
-    if(!json.widget.platform) json.widget.platform = [];
+    if (!json.widget.platform) json.widget.platform = [];
 
     //See if platform already exists
     let platformNode;
@@ -58,21 +59,24 @@ const addNodes = function(json, opts) {
       targetNodes = [];
     }
 
-    //Icons do not have a consistent node for detection
-    const itemKey = nodeData.itemKey;
+    // Icons do not have a consistent node for detection
+    const idAttrs = nodeData.idAttrs;
 
-    nodeData.items.forEach((node) => {
+    nodeData.sizes.forEach((node) => {
       //If node exists, overwrite it
-      let props = opts.serializeFn(platformName, opts.projectPath, node);
+      let newAttrs = opts.serializeFn(platformName, opts.projectPath, node);
+
       _filter(targetNodes, (item) => {
         if (!item) return;
 
-        if (item.$[itemKey] === String(props[itemKey])) {
+        // Compare using idAttrs because file names cannot be guaranteed to not
+        // not change in future versions.
+        if (_pick(item.$, idAttrs) === _pick(newAttrs, idAttrs)) {
           _remove(targetNodes, item);
         }
       });
 
-     targetNodes.push( {$: props} );
+      targetNodes.push( {$: newAttrs} );
     });
 
     platformNode[opts.keyName] = targetNodes;
@@ -87,10 +91,10 @@ const addNodes = function(json, opts) {
 
    desiredNodes Array:
    {ios: [], android: [], blackberry: []}
-   See src/default-icons for an example
+   See src/platform-icon-sizes for an example
 
    keyName: String
-   probably icon or splash, what is the config.xml node name?
+   `icon` or `splash`
 
    serializeFn: Function
    Given a single node from desiredNodes, serialize to config.xml format

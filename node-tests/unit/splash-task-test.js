@@ -2,23 +2,23 @@
 
 const expect        = require('../helpers/expect');
 
-const IconTask      = require('../../src/icon-task');
+const SplashTask    = require('../../src/splash-task');
 
 const fs            = require('fs');
 const sizeOf        = require('image-size');
 const parseString   = require('xml2js').parseString;
 const _find         = require('lodash').find;
-const PlatformSizes = require('../../src/platform-icon-sizes');
+const PlatformSizes = require('../../src/platform-splash-sizes');
 
-describe('IconTask', function() {
+describe('SplashTask', function() {
   // Hitting the file system is slow
   this.timeout(0);
 
   const configFixtureDir = 'node-tests/fixtures/config.xml';
   const tmpConfigPath = 'tmp/config.xml';
 
-  const svgPath = 'node-tests/fixtures/icon.svg';
-  const pngPath = 'icons';
+  const svgPath = 'node-tests/fixtures/splash.svg';
+  const pngPath = 'splashes';
   const projectPath = 'tmp';
 
   before((done) => {
@@ -42,7 +42,7 @@ describe('IconTask', function() {
       let task;
 
       before(() => {
-        task = IconTask({
+        task = SplashTask({
           source: svgPath,
           dest: pngPath,
           projectPath: projectPath,
@@ -60,7 +60,7 @@ describe('IconTask', function() {
         fs.rmdirSync(`${projectPath}/${pngPath}`);
       });
 
-      it('writes the icons', (done) => {
+      it('writes the splashes', (done) => {
         task.then(() => {
           try {
             platformSizes.sizes.forEach((size) => {
@@ -68,8 +68,8 @@ describe('IconTask', function() {
                 `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
 
               expect(fs.existsSync(path)).to.equal(true);
-              expect(sizeOf(path).width).to.equal(size.size);
-              expect(sizeOf(path).height).to.equal(size.size);
+              expect(sizeOf(path).width).to.equal(size.width);
+              expect(sizeOf(path).height).to.equal(size.height);
             });
             done();
           } catch(e) {
@@ -92,18 +92,18 @@ describe('IconTask', function() {
 
               expect(platformNode).to.exist;
 
-              const iconsAttrs = platformNode.icon.map((iconNode) => {
-                return iconNode.$;
+              const splashesAttrs = platformNode.splash.map((splashNode) => {
+                return splashNode.$;
               });
 
               platformSizes.sizes.forEach((size) => {
                 const attrs = {
                   src: `${pngPath}/${platform}/${size.name}.png`,
-                  height: size.size.toString(),
-                  width: size.size.toString()
+                  height: size.height.toString(),
+                  width: size.width.toString()
                 }
 
-                expect(iconsAttrs).to.include(attrs);
+                expect(splashesAttrs).to.include(attrs);
               });
             });
             done();
