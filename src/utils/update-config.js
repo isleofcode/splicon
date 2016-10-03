@@ -29,7 +29,13 @@ const parseXML = function(xmlPath) {
 };
 
 const saveXML = function(json, xmlPath) {
-  const builder = new xml2js.Builder();
+  const builder = new xml2js.Builder({
+    renderOpts: {
+      'pretty': true,
+      'indent': '    ',
+      'newline': '\n'
+    }
+  });
   const xml = builder.buildObject(json);
 
   // Add missing trailing newline
