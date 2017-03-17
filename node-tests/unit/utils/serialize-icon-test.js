@@ -14,8 +14,8 @@ describe('SerializeIcon', () => {
       const props = SerializeIcon(platform, projectPath, iconData);
 
       expect(props.src).to.equal(iconData.path);
-      expect(props.width).to.equal(iconData.size);
-      expect(props.height).to.equal(iconData.size);
+      expect(props.width).to.equal(iconData.size.toString());
+      expect(props.height).to.equal(iconData.size.toString());
     });
   });
 
