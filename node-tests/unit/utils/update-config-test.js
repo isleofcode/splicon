@@ -23,7 +23,7 @@ describe('UpdateConfig', function() {
     const projectPath = 'tmp';
     const desiredNodes = {
       ios: {
-        sizeKey: 'width',
+        idAttributes: ['width'],
         sizes: [
           { size: 57,  name: 'icon', path: 'res/icon/ios/icon.png' }
         ]
@@ -66,9 +66,38 @@ describe('UpdateConfig', function() {
       });
     });
 
-    context('when config.xml has desiredNodes platform', () => {
+    context('when config.xml has desiredNodes platform with no icons', () => {
       before((done) => {
         const fixturePath = `${configFixtureDir}/ios-platform-node.xml`;
+        const fixtureStream = fs.createReadStream(fixturePath);
+        const tmpConfigStream = fs.createWriteStream(tmpConfigPath);
+        fixtureStream.pipe(tmpConfigStream);
+        tmpConfigStream.on('finish', () => { done(); });
+      });
+
+      it('it adds the icon nodes', (done) => {
+        UpdateConfig(args).then(() => {
+          const tmpConfig = fs.readFileSync(tmpConfigPath, 'utf8');
+          const expectedConfigPath =
+            `${configFixtureDir}/no-and-ios-platform-node-expected.xml`;
+          const expectedConfig = fs.readFileSync(expectedConfigPath, 'utf8');
+
+          try {
+            expect(tmpConfig).to.equal(expectedConfig);
+            done();
+          } catch(e) {
+            done(e);
+          }
+        }).catch((e) => {
+          done(e);
+        });
+      });
+    });
+
+    context('when config.xml has desiredNodes platform with icons', () => {
+      before((done) => {
+        const fixturePath =
+          `${configFixtureDir}/no-and-ios-platform-node-expected.xml`;
         const fixtureStream = fs.createReadStream(fixturePath);
         const tmpConfigStream = fs.createWriteStream(tmpConfigPath);
         fixtureStream.pipe(tmpConfigStream);
