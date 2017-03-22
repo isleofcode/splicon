@@ -13,7 +13,6 @@ const _filter       = require('lodash').filter;
 const _remove       = require('lodash').remove;
 const _pick         = require('lodash').pick;
 const _pullAt       = require('lodash').pullAt;
-const _isEqual      = require('lodash').isEqual;
 
 const parseXML = function(xmlPath) {
   return new RSVP.Promise((resolve, reject) => {
@@ -66,9 +65,6 @@ const addNodes = function(json, opts) {
       targetNodes = [];
     }
 
-    // Icons do not have a consistent node for detection
-    const idAttributes = nodeData.idAttributes;
-
     // Replace existing nodes.
     nodeData.sizes.forEach((node) => {
       let newAttrs = opts.serializeFn(platformName, opts.projectPath, node);
@@ -78,14 +74,7 @@ const addNodes = function(json, opts) {
 
         let existingAttrs = item.$;
 
-        // Compare using an attrs hash because filenames cannot be guaranteed
-        // to not change in future versions.
-        let existingAttrsHash = _pick(existingAttrs, idAttributes);
-        let newAttrsHash = _pick(newAttrs, idAttributes);
-
-        // Compare using each object's own properties because two objects will
-        // not be strictly (===) equal.
-        if (_isEqual(newAttrsHash, existingAttrsHash)) {
+        if (newAttrs.id === existingAttrs.id) {
           _remove(targetNodes, item);
         }
       });

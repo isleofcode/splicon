@@ -23,9 +23,8 @@ describe('UpdateConfig', function() {
     const projectPath = 'tmp';
     const desiredNodes = {
       ios: {
-        idAttributes: ['width'],
         sizes: [
-          { size: 57,  name: 'icon', path: 'res/icon/ios/icon.png' }
+          { size: 57,  id: 'icon', path: 'res/icon/ios/icon.png' }
         ]
       }
     };

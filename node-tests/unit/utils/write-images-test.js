@@ -26,7 +26,7 @@ describe('WriteImages', function() {
         sizes: [
           {
             size: 57,
-            name: 'icon'
+            id: 'icon'
           }
         ]
       }
@@ -53,7 +53,7 @@ describe('WriteImages', function() {
         try {
           _forOwn(updatedPlatformSizes, (icons, platform) => {
             icons.sizes.map((size) => {
-              const path = `${dest}/${platform}/${size.name}.png`;
+              const path = `${dest}/${platform}/${size.id}.png`;
               expect(size.path).to.equal(path);
             });
           });

@@ -19,7 +19,7 @@ module.exports = function (opts) {
       MakeDir('./', `${opts.projectPath}/${opts.dest}/${platform}`);
 
       icons.sizes.map((size) => {
-        size.path = `${opts.dest}/${platform}/${size.name}.png`;
+        size.path = `${opts.dest}/${platform}/${size.id}.png`;
       });
 
       rasterizeQueue = _union(rasterizeQueue, icons.sizes);
