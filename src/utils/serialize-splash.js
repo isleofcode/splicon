@@ -10,8 +10,8 @@ module.exports = function (platform, projectPath, iconData) {
   };
 
   if (platform === 'ios') {
-    props.width = iconData.width;
-    props.height = iconData.height;
+    props.width = iconData.width.toString();
+    props.height = iconData.height.toString();
   } else if (platform === 'android') {
     props.density = iconData.id;
   }
