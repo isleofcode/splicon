@@ -1,5 +1,7 @@
 Splicon (beta)
 --------------
+[![Build
+Status](https://travis-ci.org/isleofcode/splicon.svg?branch=master)](https://travis-ci.org/isleofcode/splicon)
 
 Splicon is a command-line tool and library for generating icons and splash
 screens for Cordova projects. It generates the images for each platform's
