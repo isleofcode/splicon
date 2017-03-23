@@ -65,19 +65,16 @@ const addNodes = function(json, opts) {
       targetNodes = [];
     }
 
-    // Icons do not have a consistent node for detection
-    const idAttrs = nodeData.idAttrs;
-
+    // Replace existing nodes.
     nodeData.sizes.forEach((node) => {
-      //If node exists, overwrite it
       let newAttrs = opts.serializeFn(platformName, opts.projectPath, node);
 
       _filter(targetNodes, (item) => {
         if (!item) return;
 
-        // Compare using idAttrs because file names cannot be guaranteed to not
-        // not change in future versions.
-        if (_pick(item.$, idAttrs) === _pick(newAttrs, idAttrs)) {
+        let existingAttrs = item.$;
+
+        if (newAttrs.id === existingAttrs.id) {
           _remove(targetNodes, item);
         }
       });

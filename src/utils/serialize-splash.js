@@ -4,13 +4,16 @@
 const _get          = require('lodash').get;
 
 module.exports = function (platform, projectPath, iconData) {
-  let props = { src: iconData.path };
+  let props = {
+    id: iconData.id,
+    src: iconData.path
+  };
 
   if (platform === 'ios') {
-    props.width = iconData.width;
-    props.height = iconData.height;
+    props.width = iconData.width.toString();
+    props.height = iconData.height.toString();
   } else if (platform === 'android') {
-    props.density = iconData.name;
+    props.density = iconData.id;
   }
 
   return props;

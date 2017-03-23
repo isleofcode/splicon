@@ -53,7 +53,7 @@ describe('IconTask', function() {
       after(() => {
         platformSizes.sizes.forEach((size) => {
           const path =
-            `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
+            `${projectPath}/${pngPath}/${platform}/${size.id}.png`;
           fs.unlinkSync(path);
         });
         fs.rmdirSync(`${projectPath}/${pngPath}/${platform}`);
@@ -65,7 +65,7 @@ describe('IconTask', function() {
           try {
             platformSizes.sizes.forEach((size) => {
               const path =
-                `${projectPath}/${pngPath}/${platform}/${size.name}.png`;
+                `${projectPath}/${pngPath}/${platform}/${size.id}.png`;
 
               expect(fs.existsSync(path)).to.equal(true);
               expect(sizeOf(path).width).to.equal(size.size);
@@ -98,7 +98,8 @@ describe('IconTask', function() {
 
               platformSizes.sizes.forEach((size) => {
                 const attrs = {
-                  src: `${pngPath}/${platform}/${size.name}.png`,
+                  id: size.id,
+                  src: `${pngPath}/${platform}/${size.id}.png`,
                   height: size.size.toString(),
                   width: size.size.toString()
                 }
