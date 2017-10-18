@@ -20,7 +20,11 @@ module.exports = {
       { size: 144, id: 'icon-72@2x' },
       { size: 50,  id: 'icon-50' },
       { size: 100, id: 'icon-50@2x' },
-      { size: 167, id: 'icon-83.5@2x' }
+      { size: 167, id: 'icon-83.5@2x' },
+      { size: 120, id: 'icon-120' },
+      { size: 240, id: 'icon-120@2x' },
+      { size: 152, id: 'icon-152' },
+      { size: 304, id: 'icon-152@2x' }
     ]
   },
 
