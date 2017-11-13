@@ -22,7 +22,10 @@ module.exports = {
       { width: 2048, height: 1536, id: '2048-1536' },
 
       { width: 2048, height: 2732, id: '2048-2732' },
-      { width: 2732, height: 2048, id: '2732-2048' }
+      { width: 2732, height: 2048, id: '2732-2048' },
+
+      { width: 1125, height: 2436, id: '1125-2436' },
+      { width: 2436, height: 1125, id: '2436-1125' }
     ]
   },
 
